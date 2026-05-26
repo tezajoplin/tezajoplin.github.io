@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teza Joplin — Fit. Work. Explore.</title>
+  <meta name="description" content="Digital Marketing Specialist & SEO. Based in Indonesia, open to work in KL & beyond.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #121110;
+      --bg2: #1a1917;
+      --bg3: #22201e;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0ede8;
+      --muted: #a8a49e;
+      --dim: #5a5650;
+      --accent: #c8b89a;
+      --green: #4a7c59;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NOISE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(12px);
+      border-color: var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      padding: 0 2.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+      gap: 4rem;
+    }
+
+    .hero-photo {
+      position: relative;
+      height: 80vh;
+      overflow: hidden;
+      border-radius: 2px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.3s;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(0.85);
+    }
+
+    .hero-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(18,17,16,0.5) 0%, transparent 40%);
+    }
+
+    .hero-content {
+      padding-bottom: 1rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,184,154,0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 50% at 20% 80%, rgba(74,124,89,0.04) 0%, transparent 50%);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      max-width: 800px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .btn {
+      padding: 0.75rem 1.75rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 500;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--muted);
+      color: var(--text);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      right: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1.2s;
+    }
+
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--dim);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+
+    /* WORK */
+    .work-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin-bottom: 1px;
+      transition: background 0.2s;
+      cursor: default;
+    }
+
+    .work-card:hover { background: var(--bg3); }
+
+    .work-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .work-card-meta {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .work-card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+    }
+
+    .work-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid var(--green);
+      color: var(--green);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .work-card-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+    }
+
+    .work-stats {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .stat-item { }
+
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* LIFE */
+    .life-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .life-card {
+      background: var(--bg2);
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+
+    .life-card:hover { background: var(--bg3); }
+
+    .life-card.featured {
+      grid-row: 1 / 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 320px;
+      background: linear-gradient(160deg, #1e1c18 0%, #141210 100%);
+    }
+
+    .life-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .life-card-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .life-card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .life-card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .life-stats-row {
+      display: flex;
+      gap: 0;
+      background: var(--border);
+      margin-top: 1px;
+    }
+
+    .life-stat {
+      flex: 1;
+      background: var(--bg2);
+      padding: 1.5rem 2rem;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .life-stat:last-child { border-right: none; }
+    .life-stat:hover { background: var(--bg3); }
+
+    .life-stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .life-stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* BLOG */
+    .blog-list { }
+
+    .blog-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: padding-left 0.2s;
+    }
+
+    .blog-item:hover { padding-left: 0.5rem; }
+
+    .blog-item:first-child { border-top: 1px solid var(--border); }
+
+    .blog-item-cat {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .blog-item-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    .blog-arrow {
+      color: var(--dim);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-left: 1rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .blog-item:hover .blog-arrow {
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-tagline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .footer-right {
+      font-size: 0.75rem;
+      color: var(--dim);
+      letter-spacing: 0.06em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero { grid-template-columns: 1fr; padding: 6rem 1.25rem 4rem; gap: 2rem; }
+      .hero-photo { height: 50vh; }
+      section { padding: 4rem 1.25rem; }
+      .life-grid { grid-template-columns: 1fr; }
+      .life-card.featured { grid-row: auto; min-height: 200px; }
+      .work-stats { gap: 1.25rem; flex-wrap: wrap; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="/" class="nav-logo">TJ</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#life">Life</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-photo">
+      <img src="hero.jpg" alt="Teza Joplin in Japan">
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Based in Indonesia · Open to work in KL & beyond</p>
+      <h1 class="hero-title">
+        Hi, I'm Teza.<br>
+        I do <em>SEO,</em> chase<br>
+        good coffee, and<br>
+        travel when I can.
+      </h1>
+      <p class="hero-sub">Digital marketing specialist building real things — from organic traffic to content that doesn't feel like content.</p>
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-primary">See my work</a>
+        <a href="#about" class="btn btn-secondary">About me</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      Scroll
+    </div>
+  </section>
+
+  <section id="work">
+    <p class="section-label">Work</p>
+
+    <div class="work-card">
+      <div class="work-card-header">
+        <div>
+          <p class="work-card-meta">SEO Specialist · votelino.id · 2026</p>
+          <h2 class="work-card-title">SEO from scratch — paid voting platform</h2>
+        </div>
+        <span class="work-tag">Ongoing</span>
+      </div>
+      <p class="work-card-desc">Built full SEO foundation for an online paid voting platform targeting event organizers across Indonesia. Zero to showing up on Google in under 6 weeks — no paid traffic, no shortcuts.</p>
+      <div class="work-stats">
+        <div class="stat-item">
+          <div class="stat-value">308</div>
+          <div class="stat-label">Impressions</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">4.2</div>
+          <div class="stat-label">Avg. position</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">10.4%</div>
+          <div class="stat-label">CTR</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">77</div>
+          <div class="stat-label">Organic sessions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-header">
+        <div>
+          <p class="work-card-meta">Personal Brand · 2026</p>
+          <h2 class="work-card-title">tezajoplin.com — this website</h2>
+        </div>
+        <span class="work-tag" style="border-color: #7a6a4a; color: #7a6a4a;">Building</span>
+      </div>
+      <p class="work-card-desc">Designed and built personal portfolio site from scratch. SEO, content strategy, and brand identity — all in one place.</p>
+    </div>
+
+    <div class="work-card">
+      <div class="work-card-header">
+        <div>
+          <p class="work-card-meta">Certifications</p>
+          <h2 class="work-card-title">Full Stack Digital Marketing · Advanced SEO · Performance Marketing</h2>
+        </div>
+      </div>
+      <p class="work-card-desc">RevoU Full Stack Digital Marketing (82.05/100) · Ilmi Digital Advanced SEO Bootcamp · Ilmi Digital Performance Marketing — Google Ads & Meta Ads.</p>
+    </div>
+  </section>
+
+  <section id="life">
+    <p class="section-label">Life</p>
+
+    <div class="life-grid">
+      <div class="life-card featured">
+        <div class="life-card-icon">🗾</div>
+        <div class="life-card-label">Travel</div>
+        <div class="life-card-title">Japan, twice and counting.</div>
+        <div class="life-card-desc">City vibes, winter weather, convenience stores at 3am. Japan lives rent-free in my head.</div>
+      </div>
+      <div class="life-card">
+        <div class="life-card-icon">⚽</div>
+        <div class="life-card-label">Football</div>
+        <div class="life-card-title">On the pitch 2–3x a week.</div>
+        <div class="life-card-desc">Training for the game, not the mirror.</div>
+      </div>
+      <div class="life-card">
+        <div class="life-card-icon">🏋️</div>
+        <div class="life-card-label">Gym</div>
+        <div class="life-card-title">Targeting lean athletic.</div>
+        <div class="life-card-desc">Structured program, not random sets.</div>
+      </div>
+      <div class="life-card">
+        <div class="life-card-icon">☕</div>
+        <div class="life-card-label">Daily</div>
+        <div class="life-card-title">Coffeeshop work sessions.</div>
+        <div class="life-card-desc">Morning coffee, laptop open, good music. That's the setup.</div>
+      </div>
+      <div class="life-card">
+        <div class="life-card-icon">🎥</div>
+        <div class="life-card-label">Creating</div>
+        <div class="life-card-title">Building a YouTube channel.</div>
+        <div class="life-card-desc">Fitness, daily life, travel. Figuring it out as I go.</div>
+      </div>
+    </div>
+
+    <div class="life-stats-row">
+      <div class="life-stat">
+        <div class="life-stat-value">2×</div>
+        <div class="life-stat-label">Japan trips</div>
+      </div>
+      <div class="life-stat">
+        <div class="life-stat-value">3×</div>
+        <div class="life-stat-label">Football / week</div>
+      </div>
+      <div class="life-stat">
+        <div class="life-stat-value">∞</div>
+        <div class="life-stat-label">Coffee cups</div>
+      </div>
+      <div class="life-stat">
+        <div class="life-stat-value">29</div>
+        <div class="life-stat-label">Years of figuring it out</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <p class="section-label">Blog</p>
+    <div class="blog-list">
+      <a href="#" class="blog-item">
+        <div>
+          <p class="blog-item-cat">Work · SEO</p>
+          <p class="blog-item-title">What 6 weeks of SEO actually looks like</p>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+      <a href="#" class="blog-item">
+        <div>
+          <p class="blog-item-cat">Explore · Travel</p>
+          <p class="blog-item-title">Why I keep coming back to Japan</p>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+      <a href="#" class="blog-item">
+        <div>
+          <p class="blog-item-cat">Fit · Training</p>
+          <p class="blog-item-title">Training for the pitch, not the mirror</p>
+        </div>
+        <span class="blog-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="about">
+    <p class="section-label">About</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+      <div>
+        <div style="position: relative; overflow: hidden; border-radius: 2px; margin-bottom: 2rem;">
+          <img src="about.jpg" alt="Teza Joplin" style="width: 100%; height: 500px; object-fit: cover; object-position: center top; display: block; filter: saturate(0.9);">
+          <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,17,16,0.4) 0%, transparent 50%);"></div>
+        </div>
+        <a href="about.html" class="btn btn-secondary" style="display: inline-block;">Read the full story →</a>
+      </div>
+      <div>
+        <h2 style="font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.2; margin-bottom: 1.5rem; color: var(--text);">
+          Honestly? I didn't plan to end up in marketing.
+        </h2>
+        <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem;">I spent years managing aquaculture operations in Pontianak. Think early mornings, shrimp ponds, harvest logistics, and handling shipments all the way to buyers in Jakarta.</p>
+        <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem;">So I moved to Bali. Managed a villa during the day. Then at night, I'd join online classes for digital marketing. Most nights ended with a group meeting or just me gaming to decompress.</p>
+        <p style="font-size: 0.95rem; color: var(--muted); line-height: 1.8;">Turns out I was pretty into it. Right now I'm running SEO for votelino.id and looking to make my next move to Kuala Lumpur.</p>
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+          <p style="font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem;">Get in touch</p>
+          <a href="mailto:tezajoplinpaelongan@gmail.com" style="color: var(--accent); text-decoration: none; font-size: 0.9rem;">tezajoplinpaelongan@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-tagline">Fit. Work. Explore.</span>
+    <span class="footer-right">© 2026 Teza Joplin Paelongan</span>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+
+</body>
+</html>
