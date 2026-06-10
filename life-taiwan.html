@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro FC, Away to Taiwan. — Teza Joplin</title>
+  <meta name="description" content="A last-minute call, a flight to Taipei, and football in the Taichung heat. September 2025.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #121110;
+      --bg2: #1a1917;
+      --bg3: #22201e;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0ede8;
+      --muted: #a8a49e;
+      --dim: #5a5650;
+      --accent: #c8b89a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* PROGRESS BAR */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18,17,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-back {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--text); }
+
+    /* HERO PARALLAX */
+    .hero-wrap {
+      width: 100%;
+      height: 70vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 110%;
+      object-fit: cover;
+      object-position: center 60%;
+      filter: saturate(0.85);
+      display: block;
+      will-change: transform;
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .article-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem 8rem;
+    }
+
+    .article-meta {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .reading-time {
+      color: var(--dim);
+      border-left: 1px solid var(--border);
+      padding-left: 1rem;
+    }
+
+    .article-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+
+    .article-intro {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* DROP CAP */
+    .article-intro::first-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4.2em;
+      float: left;
+      line-height: 0.75;
+      margin: 0.08em 0.1em 0 0;
+      color: var(--accent);
+    }
+
+    .article-section {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-section:last-of-type { border-bottom: none; }
+
+    .article-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .article-section p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    /* PULL QUOTE */
+    .pull-quote {
+      margin: 2rem 0;
+      padding: 1rem 1.5rem;
+      border-left: 2px solid var(--accent);
+    }
+
+    .pull-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem !important;
+      font-style: italic;
+      color: var(--text) !important;
+      line-height: 1.5 !important;
+      margin: 0 !important;
+    }
+
+    /* PHOTO + CAPTION */
+    .photo-wrap { margin: 2rem 0; }
+
+    .article-photo {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      border-radius: 2px;
+      filter: saturate(0.85);
+      display: block;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .article-photo.loaded { opacity: 1; }
+
+    .photo-caption {
+      font-size: 0.75rem;
+      color: var(--dim);
+      font-style: italic;
+      margin-top: 0.6rem;
+      letter-spacing: 0.02em;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 2px;
+      filter: saturate(0.85);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .photo-grid img.loaded { opacity: 1; }
+
+    .article-closing {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--text);
+      font-style: italic;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover { color: var(--text); border-color: var(--muted); }
+
+    /* BACK TO TOP */
+    .back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      background: rgba(18,17,16,0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s, border-color 0.2s;
+      z-index: 99;
+    }
+
+    .back-top.visible { opacity: 1; transform: translateY(0); }
+    .back-top:hover { border-color: var(--accent); }
+
+    .back-top svg { width: 16px; height: 16px; stroke: var(--muted); fill: none; stroke-width: 1.5; }
+    .back-top:hover svg { stroke: var(--accent); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .article-container { padding: 3rem 1.25rem 6rem; }
+      .hero-wrap { height: 50vh; }
+      .article-photo { height: 300px; }
+      .photo-grid { grid-template-columns: 1fr; }
+      .photo-grid img { height: 280px; }
+      .back-top { bottom: 1.25rem; right: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">TJ</a>
+    <a href="/#life" class="nav-back">← Back to Life</a>
+  </nav>
+
+  <div class="hero-wrap">
+    <img src="images/taiwan-team.jpg" alt="Centro FC in Taiwan" class="hero-image" id="heroImg">
+  </div>
+
+  <div class="article-container">
+    <p class="article-meta reveal">
+      Travel · Football · Taiwan · September 2025
+      <span class="reading-time">5 min read</span>
+    </p>
+    <h1 class="article-title reveal">Centro FC, Away to Taiwan.</h1>
+
+    <p class="article-intro reveal">Got a phone call while drinking coffee. Mid-afternoon, laptop open, SEO notes on the side. The boss of Centro FC was on the line. "Are you free on 4th September?" That's it. That was the whole pitch. I said yes before even knowing where we were going.</p>
+
+    <div class="article-section reveal">
+      <h2>Getting There.</h2>
+      <p>Turned out: Taiwan. I genuinely thought it was going to be somewhere local. Taiwan was not on my radar at all. When I found out, I was very, very happy!</p>
+      <p>Visa sorted, flights booked. Two weeks of waiting that felt way longer than it should. I could not sit still.</p>
+      <p>We split flights. The rest of the team took EVA Air, me and one other took China Airlines. Big plane! Like, actually big, three rows of seats, wide-body, the kind where you feel like you're on a flying building. I always get excited boarding something that size. Turbulence still happened. I still didn't like it. But at least the plane was big enough to pretend I was okay!</p>
+      <p>We landed. The team was already there waiting. Taipei for the first time. Walked out and immediately liked the city. The layout, the cleanliness, the energy. First impression: this place has its act together.</p>
+      <p>Hotel, drop bags, and immediately back out the door. So we went to a hotpot restaurant. Big spread and the whole team ate with happiness! So did I. First meal in Taiwan and it already slapped.</p>
+      <div class="photo-wrap">
+        <img src="images/taiwan-departure.jpg" alt="Centro FC at the airport" class="article-photo" style="object-position: center 80%;">
+        <p class="photo-caption">Centro FC, Taoyuan International Airport. The trip starts here.</p>
+      </div>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>Free Day in Taipei.</h2>
+      <p>Next morning we had the full day free. Nowhere to be, no schedule. Just Taipei and whatever we wanted to do with it.</p>
+      <p>Hot. Genuinely, aggressively hot. But when are you ever going to be in Taipei for free? You go!</p>
+      <p>Headed to Ximending. Street food everywhere, all of it good, all of it exactly my kind of eating. At some point I split from the group, two friends of mine happened to be studying Mandarin in Taipei, so I went to find them. They knew the area so I just followed. We walked around Ximending for hours. Could've spent three days there and still not seen everything.</p>
+      <div class="photo-grid">
+        <img src="images/taiwan-friends.jpg" alt="With friends in Taipei" style="object-position: center 40%;">
+        <img src="images/taiwan-rainbow.jpg" alt="Rainbow crossing, Ximending" style="object-position: center 50%;">
+      </div>
+      <p class="photo-caption" style="margin-top: -1rem;">Ximending with the Taipei tourguide. Just kidding okay!</p>
+      <p></p>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>Taichung. Match Day.</h2>
+      <p>Night came, train to Taichung. Not just any train, the high-speed rail. It's fast. Actually fast. </p> <p>I sat there watching the city disappear behind me thinking this is the kind of infrastructure that makes a country feel serious about itself! Train dropped us in Taichung late at night. Then we go straight for a quick Dinner, I forget the name of the restaurant but I remember we ate like we never eat for 3 days.</p>
+      <div class="photo-wrap">
+        <img src="images/taiwan-koper.jpg" alt="Centro FC arriving in Taichung" class="article-photo" style="object-position: center 50%;">
+        <p class="photo-caption">High-speed rail to Taichung. This is the kind of infrastructure that makes a country feel serious. Yeah, it really is.</p>
+      </div>
+      <p>September 6th came fast. Kickoff: 1pm. Outdoor. In Taiwan. In September. The sun had absolutely no chill. Four teams total, us, a Japanese team, a local university team from Taichung, and a squad from Hong Kong. Fourfeo format. Sounds fun on paper. Less fun when you realize you're doing it under direct sunlight at 1pm with three substitutes and fourteen players who are already sweating before warmup even starts.</p>
+      <div class="photo-wrap">
+        <img src="images/taiwan-action.jpg" alt="In action, Taichung" class="article-photo" style="object-position: center 30%;">
+        <p class="photo-caption">Match day. Yep, that's me kicking the ball. No substitution, full 90. Worth it.</p>
+      </div>
+      <p>We finished second! Fourteen players, three substitutes, everyone cramping by the end. Even professional players would struggle in that heat with that setup. But everyone played fair, everyone played for fun. That's the only way it should be!</p>
+      <p>The Japanese players were something else. Most of them were 40, 50 years old. You'd think that changes how they play. It doesn't. Calm, composed, good vision, technically clean. Never gets old, Ojisan! I genuinely learned something watching them.</p>
+
+      <div class="pull-quote reveal">
+        <p>"A kid from Kalimantan playing football in Taiwan. Didn't see that coming."</p>
+      </div>
+
+      <p>After the final whistle, handshakes, photos, the kind of good energy that happens between people who just competed and immediately respected each other. Oh, and it rained. Right at the end. Like the sky decided to cool everyone down after watching us suffer for 90 minutes. Too late, but thanks tho.</p>
+      <div class="photo-wrap">
+        <img src="images/taiwan-card.jpg" alt="Match action, Taiwan" class="article-photo" style="object-position: center 40%;">
+        <p class="photo-caption">Centro FC. Blue, proud, and very very warm.</p>
+      </div>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>After the Match.</h2>
+      <p>Half the team went back to the hotel. I did not!</p>
+      <p>So we went for hotpot again. I'd played a full 90 minutes in the afternoon heat without a single substitution, I was extremely hungry and completely justified in eating everything on the table!</p>
+      <p>After dinner, street food around Xitun District. More food! Someone tried to get me to eat insects. I declined immediately and without hesitation. I respect the culture but I am a meat person and that is final bro.</p>
+      <div class="photo-wrap">
+        <img src="images/taiwan-culinary.jpg" alt="Street food, Xitun District" class="article-photo" style="height: 600px; object-position: center 50%;">
+        <p class="photo-caption">Xitun District after midnight. No insects were consumed.</p>
+      </div>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>Last Day.</h2>
+      <p>Morning walk around Taichung before heading home. The city is clean. Seriously clean! Modern without feeling cold, organized without feeling sterile.</p>
+      <p>Then airport, then home.</p>
+      <div class="photo-wrap">
+        <img src="images/taiwan-medals.jpg" alt="Centro FC, end of tournament" class="article-photo" style="object-position: center 40%;">
+        <p class="photo-caption">End of tournament. Hot plus rain in the end, medals, and smiles. That's the whole story, but one worth memorizing.</p>
+      </div>
+    </div>
+
+    <p class="article-closing reveal">Short trip. Four days, a lot of football, a lot of food, and a city I didn't expect to love as much as I did. A kid from Kalimantan playing football in Taiwan, didn't see that coming! Thanks Centro FC for the opportunity. Heard through the grapevine there might be another one. Different country, same chaos. I'd better be on that list.</p>
+    <p class="article-closing reveal" style="margin-top: 1.5rem; font-size: 1rem;">See you on the next one.</p>
+
+    <a href="/#life" class="back-link reveal">← Back to Life</a>
+  </div>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <script>
+    // Progress bar
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      progressBar.style.width = progress + '%';
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Image fade in on load
+    document.querySelectorAll('.article-photo, .photo-grid img').forEach(img => {
+      if (img.complete) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => img.classList.add('loaded'));
+      }
+    });
+
+    // Hero parallax
+    const heroImg = document.getElementById('heroImg');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight) {
+        heroImg.style.transform = `translateY(${scrolled * 0.3}px)`;
+      }
+    });
+
+    // Back to top
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

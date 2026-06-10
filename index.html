@@ -143,7 +143,10 @@
       position: absolute;
       inset: 0;
       background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,184,154,0.05) 0%, transparent 60%),
-                  radial-gradient(ellipse 50% 50% at 20% 80%, rgba(74,124,89,0.03) 0%, transparent 50%);
+                  radial-gradient(ellipse 50% 50% at 20% 80%, rgba(74,124,89,0.03) 0%, transparent 50%),
+                  radial-gradient(circle 400px at var(--mouse-x, 70%) var(--mouse-y, 40%), rgba(200,184,154,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      transition: background 0.15s ease;
     }
 
     .hero-eyebrow {
@@ -400,7 +403,22 @@
       color: var(--text);
       margin-bottom: 0.75rem;
       line-height: 1.2;
+      display: inline-block;
+      position: relative;
     }
+
+    .work-card-title::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .work-card:hover .work-card-title::after { width: 100%; }
 
     .work-card-desc {
       font-size: 0.88rem;
@@ -437,6 +455,11 @@
       color: var(--accent);
       line-height: 1;
       margin-bottom: 0.2rem;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .work-card:hover .stat-value {
+      transform: translateY(-2px);
     }
 
     .stat-label {
@@ -560,6 +583,11 @@
       color: var(--accent);
       line-height: 1;
       margin-bottom: 0.4rem;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .life-stat:hover .life-stat-value {
+      transform: translateY(-3px);
     }
 
     .life-stat-label {
@@ -832,23 +860,24 @@
         <div class="work-card-body">
           <p class="work-card-meta">SEO Specialist · votelino.id · 2026</p>
           <h2 class="work-card-title">SEO from scratch — paid voting platform</h2>
-          <p class="work-card-desc">Built full SEO foundation for an online paid voting platform targeting event organizers across Indonesia. Zero to showing up on Google in under 6 weeks — no paid traffic, no shortcuts.</p>
+          <p class="work-card-desc">Started from zero — no rankings, no traffic, nothing indexed. Built the whole SEO foundation for votelino.id, a paid voting platform for event organizers in Indonesia. Keyword research, on-page work, content writing, GA4 and GSC setup, all of it from scratch. Three months in and it's showing up on Google. No paid traffic, no shortcuts.</p>
+          <p style="font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.75rem;">3 months in — organic only</p>
           <div class="work-stats">
             <div class="stat-item">
-              <div class="stat-value">308</div>
+              <div class="stat-value">1480</div>
               <div class="stat-label">Impressions</div>
             </div>
             <div class="stat-item">
-              <div class="stat-value">4.2</div>
+              <div class="stat-value">4.9</div>
               <div class="stat-label">Avg. position</div>
             </div>
             <div class="stat-item">
-              <div class="stat-value">10.4%</div>
+              <div class="stat-value">8.6%</div>
               <div class="stat-label">CTR</div>
             </div>
             <div class="stat-item">
-              <div class="stat-value">77</div>
-              <div class="stat-label">Organic sessions</div>
+              <div class="stat-value">127</div>
+              <div class="stat-label">Clicks</div>
             </div>
           </div>
         </div>
@@ -860,7 +889,25 @@
         <div class="work-card-body">
           <p class="work-card-meta">Operations</p>
           <h2 class="work-card-title">Before marketing, there was this.</h2>
-          <p class="work-card-desc">Used to manage shrimp ponds in Pontianak and a villa in Bali. Was totally different but same skill set — always making things work.</p>
+          <p class="work-card-desc">Started at a shrimp farm. In the middle of nowhere, Pontianak. Managed the whole thing: staff, training, harvest cycles, budgeting. No customers, no office, just mud, fish, and figuring things out. Then Bali happened. Villa manager, international guests, completely different energy. Learned how to actually talk to people there because the farm didn't teach me that, the guests did. Now back in Pontianak running JH Laundry. Still building. Same pattern though: show up, figure it out, make it work.</p>
+          <div class="work-stats">
+  <div class="stat-item">
+    <div class="stat-value">3yr</div>
+    <div class="stat-label">Aquaculture Ops</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">3</div>
+    <div class="stat-label">Industries</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">9mo</div>
+    <div class="stat-label">Villa Manager</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">2020</div>
+    <div class="stat-label">Full Time Ops</div>
+  </div>
+</div>
         </div>
       </div>
 
@@ -869,7 +916,21 @@
         <div class="work-card-body">
           <p class="work-card-meta">Certifications</p>
           <h2 class="work-card-title">Full Stack Digital Marketing · Advanced SEO · Performance Marketing</h2>
-          <p class="work-card-desc">RevoU Full Stack Digital Marketing (82.05/100) · Ilmi Digital Advanced SEO Bootcamp · Ilmi Digital Performance Marketing — Google Ads & Meta Ads.</p>
+          <p class="work-card-desc">RevoU Full Stack Digital Marketing, graduated 82.05/100. Built a real SEO project during the program that hit +70% organic traffic growth. Ilmi Digital Performance Marketing Bootcamp — graduated A+ (Exceptional), covering Meta Ads, Google Ads, TikTok Ads, Budget Management, A/B Testing, and Data Reporting. Ilmi Digital Advanced SEO Bootcamp — technical audits, keyword strategy, content optimization. All self-funded while working. Not just collecting certificates. Yes I mean it.</p>
+          <div class="work-stats">
+  <div class="stat-item">
+    <div class="stat-value">82.5</div>
+    <div class="stat-label">RevoU Full Stack Digital Marketing Score</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">A+</div>
+    <div class="stat-label">Ilmi Digital: Performance Marketing</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">3</div>
+    <div class="stat-label">Certifications</div>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -894,40 +955,34 @@
         <div class="life-card-desc">Bersinar FC Tour Part 2: Back in Malaysia with the boys. What a trip!</div>
         <div class="life-card-arrow">Read more →</div>
       </a>
+      <a href="life-taiwan.html" class="life-card featured" style="background-image: linear-gradient(to top, rgba(18,17,16,0.9) 0%, rgba(18,17,16,0.4) 50%, rgba(18,17,16,0.1) 100%), url('images/taiwan-card.jpg'); background-size: cover; background-position: center 30%; text-decoration: none;">
+        <div class="life-card-label" style="color: var(--accent);">Travel · Football</div>
+        <div class="life-card-title">Centro FC, away to Taiwan.</div>
+        <div class="life-card-desc">Playing football in Taipei with the boys. Different country, same chaos.</div>
+        <div class="life-card-arrow">Read more →</div>
+      </a>
       <div class="life-card">
-        <div class="life-card-icon">⚽</div>
-        <div class="life-card-label">Football</div>
-        <div class="life-card-title">On the pitch 2–3x a week.</div>
-        <div class="life-card-desc">Training for the game, not the mirror.</div>
+        <div class="life-card-icon">⚽🏋️</div>
+        <div class="life-card-label">Football & Gym</div>
+        <div class="life-card-title">On the pitch and in the gym.</div>
+        <div class="life-card-desc">2–3x football a week, structured gym program. Training for the game, not the mirror.</div>
       </div>
       <div class="life-card">
-        <div class="life-card-icon">🏋️</div>
-        <div class="life-card-label">Gym</div>
-        <div class="life-card-title">Targeting lean athletic.</div>
-        <div class="life-card-desc">Structured program, not random sets.</div>
-      </div>
-      <div class="life-card">
-        <div class="life-card-icon">☕</div>
-        <div class="life-card-label">Daily</div>
-        <div class="life-card-title">Coffeeshop work sessions.</div>
-        <div class="life-card-desc">Morning coffee, laptop open, good music. That's the setup.</div>
-      </div>
-      <div class="life-card">
-        <div class="life-card-icon">🎥</div>
-        <div class="life-card-label">Creating</div>
-        <div class="life-card-title">Building a YouTube channel.</div>
-        <div class="life-card-desc">Fitness, daily life, travel. Figuring it out as I go.</div>
+        <div class="life-card-icon">🗾</div>
+        <div class="life-card-label">Travel · Japan</div>
+        <div class="life-card-title">Japan, Part One.</div>
+        <div class="life-card-desc">Where it all started. First solo trip, first time feeling completely at home somewhere foreign.</div>
       </div>
     </div>
 
     <div class="life-stats-row reveal reveal-delay-2">
       <div class="life-stat">
-        <div class="life-stat-value">2×</div>
-        <div class="life-stat-label">Japan trips</div>
+        <div class="life-stat-value">0</div>
+        <div class="life-stat-label">Comfort Zones Left</div>
       </div>
       <div class="life-stat">
-        <div class="life-stat-value">3×</div>
-        <div class="life-stat-label">Football / week</div>
+        <div class="life-stat-value">90'</div>
+        <div class="life-stat-label">Full time, every time</div>
       </div>
       <div class="life-stat">
         <div class="life-stat-value">∞</div>
@@ -1036,6 +1091,53 @@
     });
 
     reveals.forEach(el => observer.observe(el));
+
+    // Counter animation for stat values
+    function animateCounter(el) {
+      const raw = el.textContent.trim();
+      const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+      if (isNaN(num) || num === 0) return;
+      const suffix = raw.replace(/[0-9.]/g, '');
+      const duration = 1200;
+      const start = performance.now();
+      const isFloat = raw.includes('.');
+      el.classList.add('counting');
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = num * ease;
+        el.textContent = (isFloat ? current.toFixed(1) : Math.floor(current)) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+        else { el.textContent = raw; el.classList.remove('counting'); }
+      }
+      requestAnimationFrame(update);
+    }
+
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.stat-value, .life-stat-value').forEach(el => {
+            animateCounter(el);
+          });
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.work-card, .life-stats-row').forEach(el => statObserver.observe(el));
+
+    // Subtle cursor glow on hero
+    const hero = document.querySelector('.hero');
+    if (hero) {
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        hero.style.setProperty('--mouse-x', x + '%');
+        hero.style.setProperty('--mouse-y', y + '%');
+      });
+    }
   </script>
 
 </body>
