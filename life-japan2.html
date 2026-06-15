@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Japan, Part Two. — Teza Joplin</title>
+  <title>Japan, Part Two — Teza Joplin</title>
   <meta name="description" content="Solo 10 days across Nikko, Matsumoto, Nagano, Kawagoe, Kamakura, and Tokyo.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg: #121110;
       --bg2: #1a1917;
-      --bg3: #22201e;
-      --border: rgba(255,255,255,0.08);
-      --text: #f0ede8;
-      --muted: #a8a49e;
-      --dim: #5a5650;
       --accent: #c8b89a;
+      --text: #e8e0d4;
+      --muted: #7a7065;
+      --max: 720px;
     }
 
     html { scroll-behavior: smooth; }
@@ -28,224 +26,433 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.6;
-      overflow-x: hidden;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
     }
 
-    nav {
+    /* Progress bar */
+    .progress-bar {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
       z-index: 100;
-      padding: 1.25rem 2.5rem;
+      transition: width 0.1s linear;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(18,17,16,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      align-items: flex-end;
+      padding: 2.5rem;
     }
 
-    .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-back {
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-back:hover { color: var(--text); }
-
-    .hero-image {
+    .hero-img {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: 70vh;
+      height: 100%;
       object-fit: cover;
       object-position: center 40%;
-      filter: saturate(0.85);
-      display: block;
-      margin-top: 0;
+      transform: scale(1.05);
+      transition: transform 0.1s linear;
     }
 
-    .article-container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 4rem 2.5rem 8rem;
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(18,17,16,0.92) 0%, rgba(18,17,16,0.3) 50%, rgba(18,17,16,0.1) 100%);
     }
 
-    .article-meta {
-      font-size: 0.72rem;
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
     }
 
-    .article-title {
+    .hero-title {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
       line-height: 1.1;
-      color: var(--text);
-      margin-bottom: 2rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Article body */
+    .article-wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
     }
 
     .article-intro {
-      font-size: 1.05rem;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #2a2825;
+    }
+
+    /* Drop cap */
+    .article-intro p:first-child::first-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      line-height: 0.85;
+      float: left;
+      margin-right: 0.12em;
+      margin-top: 0.1em;
+      color: var(--accent);
     }
 
     .article-section {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .article-section:last-of-type {
-      border-bottom: none;
+      margin-bottom: 3.5rem;
     }
 
     .article-section h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       color: var(--accent);
       margin-bottom: 1.25rem;
+      line-height: 1.2;
     }
 
     .article-section p {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.85;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      color: var(--text);
     }
 
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2.5rem 0;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1.5;
+    }
+
+    /* Photos */
     .article-photo {
       width: 100%;
-      height: 480px;
-      object-fit: cover;
-      border-radius: 2px;
-      filter: saturate(0.85);
-      margin: 2rem 0;
       display: block;
+      margin: 2rem 0 0.5rem;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      max-height: 600px;
+      object-fit: cover;
     }
 
+    .article-photo.loaded { opacity: 1; }
+
+    .photo-caption {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.75rem;
+      padding-left: 0.25rem;
+    }
+
+    /* Photo grid — 2 col */
+    .photo-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin: 2rem 0 0.5rem;
+    }
+
+    .photo-grid-2 img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .photo-grid-2 img.loaded { opacity: 1; }
+
+    /* Closing */
     .article-closing {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
       color: var(--text);
-      font-style: italic;
     }
 
     .back-link {
       display: inline-block;
       margin-top: 3rem;
       font-size: 0.8rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--accent);
       text-decoration: none;
-      border: 1px solid var(--border);
-      padding: 0.75rem 1.5rem;
-      border-radius: 2px;
-      transition: all 0.2s;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
     }
 
-    .back-link:hover {
-      color: var(--text);
-      border-color: var(--muted);
+    .back-link:hover { border-color: var(--accent); }
+
+    /* Back to top */
+    .back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      background: var(--bg2);
+      border: 1px solid #2a2825;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 50;
     }
 
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.25rem; }
-      .article-container { padding: 3rem 1.25rem 6rem; }
-      .hero-image { height: 50vh; }
-      .article-photo { height: 300px; }
+    .back-top.visible { opacity: 1; pointer-events: all; }
+
+    .back-top svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Nav back */
+    .nav-back {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 50;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1.5rem; }
+      .article-wrap { padding: 2.5rem 1.25rem 4rem; }
+      .photo-grid-2 img { height: 180px; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="/" class="nav-logo">TJ</a>
-    <a href="/#life" class="nav-back">← Back to Life</a>
-  </nav>
+  <div class="progress-bar" id="progressBar"></div>
+  <a href="/#life" class="nav-back">← Back</a>
 
-  <img src="images/japan2-hero.jpg" alt="Nikko, Japan" class="hero-image" style="object-position: center 60%;">
+  <!-- HERO -->
+  <section class="hero">
+    <img src="images/japan2-hero.jpg" alt="Nikko, Japan" class="hero-img" id="heroImg" style="object-position: center 60%;">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Life — Japan Part 2</p>
+      <h1 class="hero-title">Japan, twice<br>and counting.</h1>
+      <div class="hero-meta">
+        <span>March 2025</span>
+        <span>Solo trip</span>
+        <span>Nikko · Matsumoto · Nagano · Kawagoe · Kamakura · Tokyo</span>
+        <span>7 min read</span>
+      </div>
+    </div>
+  </section>
 
-  <div class="article-container">
-    <p class="article-meta">Travel · Japan · March 2025</p>
-    <h1 class="article-title">Japan, Part Two.</h1>
+  <!-- ARTICLE -->
+  <div class="article-wrap">
 
-    <p class="article-intro">Funny thing. I bought the ticket on my very first day in Japan, during my first trip. Stood there at the airport, jet-lagged, and somehow thought "yeah, let's book the next one." Couldn't help it. And yet, still solo. Probably always will be, and honestly? I'm good with that. 5 cities, just me and my DJI Osmo Nano, and an embarrassing amount of onigiri. Cheapest travel buddy I've ever had.</p>
+    <!-- INTRO -->
+    <div class="article-intro reveal">
+      <p>Funny thing. I bought the ticket on my very first day in Japan, during my first trip. Stood there at the airport, jet-lagged, and somehow thought "yeah, let's book the next one." Couldn't help it. And yet, still solo. Probably always will be, and honestly? I'm good with that. 5 cities, just me and my DJI Osmo Nano, and an embarrassing amount of onigiri. Cheapest travel buddy I've ever had.</p>
+    </div>
 
-    <div class="article-section">
+    <!-- NIKKO -->
+    <div class="article-section reveal">
       <h2>Nikko</h2>
-      <p>Arrived at night, so Nikko had to wait until the next morning. Worth the wait? Understatement of the trip. I'm a massive Japanese history nerd, so standing at the actual tomb of Tokugawa Ieyasu hit different. Papa, I made it! The whole place has this calm, cinematic energy, like the kind you'd usually only see in movies. Everyone around me was visibly excited, and I was right there with them trying to act cool but absolutely failing. Photos came out stunning without a single filter. The place does the work for you.</p>
+      <p>Arrived at night, so Nikko had to wait until the next morning. Worth the wait? Understatement of the trip. I'm a massive Japanese history nerd, so standing at the actual tomb of Tokugawa Ieyasu hit different. Papa, I made it! The whole place has this calm, cinematic energy, like the kind you'd usually only see in movies. Everyone around me was visibly excited, and I was right there with them trying to act cool but absolutely failing.</p>
+      <p>Photos came out stunning without a single filter. The place does the work for you.</p>
       <p>One thing that caught me off guard though. Shops close in the afternoon here. Everything runs on buses and apparently also on a schedule that Indonesia never got the memo about. Took some adjusting, but I survived.</p>
-      <img src="images/japan2-torii.jpg" alt="Torii gate, Nikko" class="article-photo">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0;">
-  <img src="images/japan2-portrait.jpg" alt="Teza at Nikko" style="width: 100%; height: 400px; object-fit: cover; object-position: center 85%; border-radius: 2px; filter: saturate(0.85);">
-  <img src="images/japan2-ticket.jpg" alt="Museum tickets, Nikko" style="width: 100%; height: 400px; object-fit: cover; object-position: center 65%; border-radius: 2px; filter: saturate(0.85);">
-</div>
+
+      <img src="images/japan2-torii.jpg" alt="Torii gate, Nikko" class="article-photo" style="object-position: center;">
+      <p class="photo-caption">Torii gate at Nikko. Cinematic without even trying.</p>
+
+      <div class="photo-grid-2 reveal">
+        <img src="images/japan2-portrait.jpg" alt="Teza at Nikko" style="object-position: center 85%;">
+        <img src="images/japan2-ticket.jpg" alt="Museum tickets, Nikko" style="object-position: center 65%;">
+      </div>
+      <p class="photo-caption">Left: me trying to act cool. Right: proof I was actually there.</p>
     </div>
 
-    <div class="article-section">
+    <!-- MATSUMOTO -->
+    <div class="article-section reveal">
       <h2>Matsumoto</h2>
-      <p>A few hours transit before Nagano, and I wasn't going to just sit at the station. Matsumoto is a small city, walkable enough that I just headed straight and ended up at the castle. As a Japanese history nerd, standing in front of Matsumoto Castle was one of those moments. Sat down at the park in front, said nothing, just looked at it. No words. Pure cinema. Eventually had to drag myself back to catch the next train. And yes, Nagano baby.</p>
-      <img src="images/japan2-matsumoto1.jpg" alt="Matsumoto Castle" class="article-photo" style="object-position: center 70%; height: 650px;">
+      <p>A few hours transit before Nagano, and I wasn't going to just sit at the station. Matsumoto is a small city, walkable enough that I just headed straight and ended up at the castle. As a Japanese history nerd, standing in front of Matsumoto Castle was one of those moments. Sat down at the park in front, said nothing, just looked at it. No words. Pure cinema.</p>
+
+      <div class="pull-quote">Eventually had to drag myself back to catch the next train. The hardest part of every good stop.</div>
+
+      <img src="images/japan2-matsumoto1.jpg" alt="Matsumoto Castle" class="article-photo" style="object-position: center 70%; max-height: 650px;">
+      <p class="photo-caption">Matsumoto Castle. One of those places that makes you stop talking and just look.</p>
     </div>
 
-    <div class="article-section">
+    <!-- NAGANO -->
+    <div class="article-section reveal">
       <h2>Nagano</h2>
       <p>One word: UNBELIEVABLE. Two stops here, the monkey hot spring and Hakuba. The walk to the monkey onsen was long, muddy, and I was wearing white shoes. Classic. Watching the monkeys argue with each other in the hot spring was oddly therapeutic. Basically watching my siblings on a family holiday.</p>
-      <p>Next day, Hakuba. Turned out it was literally the last operating day before the resort closed for the season. Lucky timing or fate, I'll take either. Now here's where I made some genuinely terrible decisions. No proper jacket, no gloves. I saw gloves for sale at 4,000-5,000 yen. Easy decision buddy. I let my hands freeze. No way I'm spending that for a one time use.</p>
-      <p>Standing at Iwatake with frozen hands and no jacket felt like the longest two hours of my life even though it wasn't that long. Eventually tapped out and came back down. But the view? 100/10. First snow mountain. First time genuinely questioning if this is how it ends. Would absolutely do it again.</p>
-      <img src="images/japan2-hakuba.jpg" alt="Hakuba, Nagano" class="article-photo" style="height: 650px;">
+
+      <p>Next day, Hakuba. Turned out it was literally the last operating day before the resort closed for the season. Lucky timing or fate, I'll take either. Now here's where I made some genuinely terrible decisions. No proper jacket, no gloves. I saw gloves for sale at 4,000 to 5,000 yen. Easy decision buddy. I let my hands freeze. No way I'm spending that for a one time use.</p>
+
+      <div class="pull-quote">Standing at Iwatake with frozen hands and no jacket felt like the longest two hours of my life. But the view? 100/10. Would absolutely do it again.</div>
+
+      <img src="images/japan2-hakuba.jpg" alt="Hakuba, Nagano" class="article-photo" style="max-height: 650px; object-position: center;">
+      <p class="photo-caption">Hakuba. First snow mountain. First time genuinely questioning if this is how it ends.</p>
     </div>
 
-    <div class="article-section">
+    <!-- KAWAGOE -->
+    <div class="article-section reveal">
       <h2>Kawagoe</h2>
       <p>Took a full rest day in Tokyo before this one. I am not the type of traveler who needs to be somewhere every single hour. I choose peace. Rest when you need to rest. No itinerary guilt.</p>
+
       <p>Kawagoe came from a TikTok rabbit hole and honestly, best recommendation the algorithm ever gave me. The main street still carries that old Edo-era feel, which is cool, but what really got me was the street food. Every single stall. I had zero willpower. RIP my yen, genuinely. Came on a weekend so it was packed, but the energy was great. The vibe, the layout, the food. All of it. Guaranteed good time.</p>
-      <img src="images/japan2-kawagoe.jpg" alt="Kawagoe bell tower" class="article-photo" style="object-position: center 40%; height: 650px;">
+
+      <img src="images/japan2-kawagoe.jpg" alt="Kawagoe bell tower" class="article-photo" style="object-position: center 40%; max-height: 650px;">
+      <p class="photo-caption">Kawagoe. Came for the aesthetic, stayed for the street food.</p>
     </div>
 
-    <div class="article-section">
+    <!-- KAMAKURA -->
+    <div class="article-section reveal">
       <h2>Kamakura</h2>
       <p>Who doesn't know Slam Dunk? The second I got off the train I felt it. I'm literally standing in that world. I keep saying this about Japan and I'll keep saying it: I have not found a single spot that didn't match my taste. Not one.</p>
+
       <p>Waited for that iconic train crossing that's all over everyone's feed. Waited a good while. The train passed in approximately 3 seconds. I got the video though, so technically a win. Thank god it was winter, because if it was hot I would've left after five minutes, no question.</p>
+
       <p>Street food near the station after that. No words, 1000/10. Very matcha-heavy which isn't really my thing, so I navigated around it and still ate well. I'd come back to Kamakura, but let's be honest. It'd be for the food, not the train.</p>
-      <img src="images/japan2-kamakura.jpg" alt="Kamakura" class="article-photo">
-<p style="font-size: 0.78rem; color: var(--dim); text-align: center; margin-top: -1rem; margin-bottom: 1rem; font-style: italic;">A fellow passenger on the Enoden line. Stared at me the whole ride.</p>
+
+      <img src="images/japan2-kamakura.jpg" alt="Kamakura" class="article-photo" style="object-position: center;">
+      <p class="photo-caption">A fellow passenger on the Enoden line. Stared at me the whole ride.</p>
     </div>
 
-    <div class="article-section">
+    <!-- TOKYO -->
+    <div class="article-section reveal">
       <h2>Tokyo</h2>
       <p>From day one in this city I just knew. Best urban city I've been to, full stop, and nothing on this trip changed that. The layout works, the people mind their business in the best way possible, and there's this unspoken rule of "I won't bother you if you don't bother me" that I deeply respect.</p>
+
       <p>Hit Shibuya, Nippori, Asakusa, same areas as my first trip, because I liked them enough to come back. And the highlight this time around? I blocked out an entire day just to sit at Blue Bottle Toyosu Park. Again. Same as part one. Zero regrets. The park is quiet, the coffee is good, and the people around you are either on a date, walking their dog, or sitting alone staring into the distance like they're having a serious conversation with themselves. Relatable content.</p>
+
       <img src="images/japan2-tokyo-coffee.jpg" alt="Blue Bottle Coffee, Tokyo" class="article-photo" style="object-position: center 60%;">
-      <img src="images/japan2-airport.jpg" alt="ANA at Haneda" class="article-photo">
+      <p class="photo-caption">Blue Bottle Toyosu. Same seat as last time. No notes.</p>
+
+      <img src="images/japan2-airport.jpg" alt="ANA at Haneda" class="article-photo" style="object-position: center;">
+      <p class="photo-caption">Haneda. See you next time, Tokyo.</p>
     </div>
 
-    <p class="article-closing">That's part two done. Part three? Obviously happening. Different cities on the list, but Tokyo is locked in no matter what. I love this city, man.</p>
+    <!-- CLOSING -->
+    <p class="article-closing reveal">That's part two done. Part three? Obviously happening. Different cities on the list, but Tokyo is locked in no matter what. I love this city, man.</p>
+    <p class="article-closing reveal" style="margin-top: 1.5rem; font-size: 1rem;">See you on the next one.</p>
 
-    <a href="/#life" class="back-link">← Back to Life</a>
+    <a href="/#life" class="back-link reveal">← Back to Life</a>
   </div>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <script>
+    // Progress bar
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      progressBar.style.width = progress + '%';
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Image fade in on load
+    document.querySelectorAll('.article-photo, .photo-grid-2 img').forEach(img => {
+      if (img.complete) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => img.classList.add('loaded'));
+      }
+    });
+
+    // Hero parallax
+    const heroImg = document.getElementById('heroImg');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight) {
+        heroImg.style.transform = `translateY(${scrolled * 0.3}px)`;
+      }
+    });
+
+    // Back to top
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 </html>

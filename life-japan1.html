@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Japan Part 1 — Teza Joplin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #121110;
+      --bg2: #1a1917;
+      --accent: #c8b89a;
+      --text: #e8e0d4;
+      --muted: #7a7065;
+      --max: 720px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 100;
+      transition: width 0.1s linear;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 2.5rem;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      transform: scale(1.05);
+      transition: transform 0.1s linear;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(18,17,16,0.92) 0%, rgba(18,17,16,0.3) 50%, rgba(18,17,16,0.1) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Article body */
+    .article-wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-intro {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #2a2825;
+    }
+
+    /* Drop cap */
+    .article-intro p:first-child::first-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      line-height: 0.85;
+      float: left;
+      margin-right: 0.12em;
+      margin-top: 0.1em;
+      color: var(--accent);
+    }
+
+    .article-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .article-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.9rem;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .article-section p {
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2.5rem 0;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1.5;
+    }
+
+    /* Photos */
+    .article-photo {
+      width: 100%;
+      display: block;
+      margin: 2rem 0 0.5rem;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      max-height: 600px;
+      object-fit: cover;
+    }
+
+    .article-photo.loaded { opacity: 1; }
+
+    .photo-caption {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.75rem;
+      padding-left: 0.25rem;
+    }
+
+    /* Photo grid — 2 col */
+    .photo-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin: 2rem 0 0.5rem;
+    }
+
+    .photo-grid-2 img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .photo-grid-2 img.pos-top {
+      object-position: center 30%;
+    }
+
+
+    .photo-grid-2 img.loaded { opacity: 1; }
+
+    /* Photo grid — 3 col */
+    .photo-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.5rem;
+      margin: 2rem 0 0.5rem;
+    }
+
+    .photo-grid-3 img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .photo-grid-3 img.loaded { opacity: 1; }
+
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.4rem;
+      margin: 2rem 0 0.5rem;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .gallery-grid img.loaded { opacity: 1; }
+
+    /* Closing */
+    .article-closing {
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .back-link:hover { border-color: var(--accent); }
+
+    /* Back to top */
+    .back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      background: var(--bg2);
+      border: 1px solid #2a2825;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 50;
+    }
+
+    .back-top.visible { opacity: 1; pointer-events: all; }
+
+    .back-top svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Nav back */
+    .nav-back {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 50;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1.5rem; }
+      .article-wrap { padding: 2.5rem 1.25rem 4rem; }
+      .photo-grid-2 img { height: 180px; }
+      .photo-grid-3 { grid-template-columns: 1fr 1fr; }
+      .photo-grid-3 img { height: 160px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid img { height: 150px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <a href="/#life" class="nav-back">← Back</a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="images/japan1-fotohero.JPG" alt="Blue Bottle Coffee, Toyosu Park, Tokyo" class="hero-img" id="heroImg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Life — Japan Part 1</p>
+      <h1 class="hero-title">A kid from Pontianak,<br>standing in Japan</h1>
+      <div class="hero-meta">
+        <span>Nov – Dec 2025</span>
+        <span>Solo trip</span>
+        <span>HKG → TYO → KNZ → OSA → KYO</span>
+        <span>8 min read</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLE -->
+  <div class="article-wrap">
+
+    <!-- INTRO -->
+    <div class="article-intro reveal">
+      <p>I've been waiting for this my whole life and I didn't even know it.</p>
+      <p>I grew up in Kendari, Southeast Sulawesi. Moved to Pontianak for middle school, stayed there long enough to call it home. Not the kind of place where going to Japan ever feels like an actual plan.
+      <p>Japan wasn't a bucket list thing. It was more like something I'd imagine during a quiet afternoon and then immediately remind myself wasn't realistic. A kid from Pontianak in Japan? Hell nah bro.</p>
+      <p>November 30, 2025. I found an opportunity, I saved up and booked the flight without thinking twice. I must.</p>
+      <p>Touchan, I made it.</p>
+    </div>
+
+    <!-- HONG KONG -->
+    <div class="article-section reveal">
+      <h2>Hong Kong, then Japan</h2>
+      <p>Quick 15-hour transit in Hong Kong first, and I made it intentional. An old friend lives there and I hadn't seen them in ages, so why not. Hong Kong and I go way back anyway. I know the snacks, I know what to eat and where, I know that familiar feeling of the city that's busy in a very specific way. We caught up, walked around, ate well. A few good hours with a city I already love, though it's changed quite a bit since my last visit. Upgraded, for sure.</p>
+
+      <img src="images/japan1-meetmyfriendsinhongkong.JPG" alt="Meeting an old friend in Hong Kong" class="article-photo">
+      <p class="photo-caption">Catching up with an old friend. Hong Kong always delivers.</p>
+
+      <p>By night I was back at the airport, sitting with my bag, staring at the departures board, absolutely unable to sleep. So I just walked around, ate McDonald's, went back to the waiting room, repeated that loop a few times. Morning flight to Japan. The wait felt longer than it actually was.</p>
+
+      <p>When the plane finally touched down I started narrating to myself like a crazy person. <em>Tez, you are actually in Japan right now.</em> Walking through the airport reading kanji signs I couldn't understand at all, and somehow that made it feel even more real. So this is Japan huh. There's this feeling that hits you that I genuinely cannot explain, it's happy but it's more than happy, like something you've been carrying for a long time finally lands. I can't explain it. I just know it felt like that.</p>
+    </div>
+
+    <!-- ASAKUSA / LANDING -->
+    <div class="article-section reveal">
+      <h2>WAHHHH</h2>
+      <p>First stop: Asakusa. Came out of the station and the cold hit first. Then the colors. Then the sounds, and this is the part I wasn't ready for. Traffic lights here have their own little melody. Train stations have their jingles. Street noise sounds different. Everything just sounds distinctly Japanese in a way that I genuinely cannot put into words, you just have to hear it yourself. I stopped on the pavement, took a long breath, looked around at everything happening at once, and went "WAHHHH" out loud like a complete idiot in public.</p>
+
+      <div class="pull-quote">Zero regrets. That's the only correct response. And I don't think anyone around me cared either, which is very on-brand for Japan.</div>
+
+      <img src="images/japan1-asakuascapsulhotel.jpg" alt="Capsule hotel in Asakusa" class="article-photo">
+      <p class="photo-caption">First capsule hotel outside Indonesia. Spotless. Everything exactly where it should be.</p>
+
+      <p>Capsule hotel in Asakusa that night. First time staying in one outside Indonesia, and everyone online says Japanese capsule hotels are something else in terms of cleanliness. They are not exaggerating even slightly. Spotless. Everything worked perfectly. Everything was exactly where it should be, nothing out of place, nothing that felt worn or tired. I lay in my little capsule genuinely impressed, which is not something I say about hotels often.</p>
+
+      <p>Then ramen. First ramen in Japan. I love ramen back in Indonesia, but the broth here is on a different level entirely. Indonesian ramen I'd give maybe a 7. Here? Above 9, and I'm not lying. I didn't know ramen plus fried rice was a standard combo option here, completely normal to order both in one sitting. I, a person who has never once eaten a small portion in his life, looked at the menu and thought: <em>this is it. fat, your turn.</em></p>
+    </div>
+
+    <!-- TOKYO DAYS -->
+    <div class="article-section reveal">
+      <h2>Tokyo days</h2>
+      <p>Day two was just walking with no real plan, which turned out to be the right call. Asakusa in the morning, Akihabara in the afternoon, just absorbing everything around me and letting the city do its thing. One thing kept bothering me in the best possible way: the light here looks different. The sky, the color of the sunlight, the way it lands on buildings and bounces off the streets. It doesn't look like Indonesia and it doesn't look like anywhere else I've been. I genuinely cannot explain it and I've thought about it more than I probably should have. I just kept stopping and staring upward at random intervals like a very confused pigeon.</p>
+
+      <p>Also: every single photo I took looked good. Not because I suddenly became a great photographer overnight. Japan is just built different and that's the only explanation I have.</p>
+
+      <img src="images/japan1-tokyofriend.jpg" alt="Ran into an old friend in Tokyo" class="article-photo">
+      <p class="photo-caption">Didn't plan this. Just ran into him in Akihabara.</p>
+
+      <p>Somewhere in Akihabara I randomly ran into a friend I wasn't expecting to see at all, a former Indonesian national team player who's still active at a pro club. I immediately, without thinking, suggested we find a pitch somewhere nearby and kick a ball around. He was with his wife. He politely declined. Completely understandable. Next time bro.</p>
+
+      <p>That night I went to Shibuya crossing for the first time and I think everyone should experience it at least once in their life. It's loud, it's packed, it's moving in every direction at once and everyone around you is walking and filming simultaneously, including me obviously. You look at photos of it and think you understand the scale, and then you're actually standing in the middle of it with people coming at you from six directions and you realize the photos don't fully capture it. I loved every chaotic second. And yes, I did walk back to the station entrance just to get a proper full-frame shot of the crossing. Worth it, obviously.</p>
+
+      <div class="photo-grid-2 reveal">
+        <img src="images/japan1-shibuyacross.JPG" alt="Shibuya crossing" style="object-position: center;">
+        <img src="images/japan1-shibuyacrossphotoinstation.JPG" alt="Full frame Shibuya crossing shot from station" style="object-position: center;">
+      </div>
+      <p class="photo-caption">Left: mid-crossing chaos. Right: the full-frame shot I walked back for.</p>
+    </div>
+
+    <!-- FUJI -->
+    <div class="article-section reveal">
+      <h2>Fuji-san</h2>
+      <p>Day three I didn't oversleep exactly. It's more that the cold air made the bed feel like it had a stronger magnetic pull than usual and I just couldn't argue with that. By the time I finally got up I had to scramble to catch a train from Shinjuku, and oh boy did I regret every extra minute I spent lying there. I was sweating by the time I got to the platform. In winter. But I made it.</p>
+
+      <img src="images/japan1-fujisan.jpg" alt="Mount Fuji, clear sky" class="article-photo" style="object-position: center 60%;">
+      <p class="photo-caption">Clear sky, full view. Fuji-san just sitting there like it owns the place. Because it does.</p>
+
+      <p>The sky was clear when I got there. Fully clear, no clouds anywhere near the top, just Fuji-san sitting there looking exactly like every single photo you've ever seen of it, except you are actually standing in front of it and that changes everything. Walked around the area, ate at Lawson which felt like a small personal pilgrimage, and crossed the famous railway tracks that half the internet has a photo in front of.</p>
+
+      <img src="images/japan1-lostinfujiarea.jpg" alt="Getting lost around Fuji area" class="article-photo">
+      <p class="photo-caption">Intentionally got lost on the way back. Ended up here. Theory confirmed.</p>
+
+      <p>On the way back I intentionally got lost, just picked random streets with no destination in mind, wanted to see where they went. Kept finding beautiful spots every single time without fail. My conclusion by this point, the one I've been building since I landed: there is genuinely no ugly corner in this country. Every random street, every quiet alley, every unremarkable block looks like someone carefully art directed it. Japan is just like that and I don't think it's an accident.</p>
+    </div>
+
+    <!-- DECEMBER 3 -->
+    <div class="article-section reveal">
+      <h2>December 3rd</h2>
+      <p>Papa's birthday.</p>
+      <p>He passed away in 2023. Every year on this day I just want to be somewhere quiet, sit down, and think about him for a while without any noise around me.</p>
+
+      <img src="images/japan1-bluebottlecoffee.JPG" alt="Blue Bottle Coffee at Toyosu Park" class="article-photo" style="object-position: center 40%;">
+      <p class="photo-caption">Blue Bottle Coffee, Toyosu Park. Sat here longer than planned. Didn't mind at all.</p>
+
+      <p>I went to Blue Bottle Coffee at Toyosu Park. Found a seat outside, opened my laptop, let my coffee go a little cold, and watched the water for a long time. The park is calm in a way that feels intentional, like it was designed specifically for people who need to just sit somewhere and be still for a bit. I stayed much longer than I planned and I didn't mind at all.</p>
+
+      <p>It was cold and quiet and exactly what I needed that day.</p>
+
+      <img src="images/japan1-newfootballshoes.jpg" alt="New football boots from Shibuya" class="article-photo">
+      <p class="photo-caption">On the way back from Toyosu. Saw them. Bought them. No regrets.</p>
+
+      <p>On the way back I passed through Shibuya and impulsively bought football boots.</p>
+      <p>Look. It's what he would have wanted. Probably.</p>
+    </div>
+
+    <!-- KANAZAWA + OSAKA -->
+    <div class="article-section reveal">
+      <h2>Kanazawa and Osaka</h2>
+      <p>From Tokyo I took the Shinkansen on the Hokuriku Arch Pass, a regional pass covering the Tokyo to Kansai route via the Hokuriku area. Great value, very scenic, highly recommend if you're doing a similar route.</p>
+
+      <p>Kanazawa was not what I expected, and the specific thing I did not expect was the cold. I stepped off the train, walked through the station doors, felt the outside air, and my body immediately filed an official complaint with zero warning.</p>
+
+      <div class="photo-grid-2 reveal">
+        <img src="images/japan1-kanazawa1.jpg" alt="Kanazawa" style="object-position: center;">
+        <img src="images/japan1-kanazawa2.jpg" alt="Kanazawa streets" style="object-position: center;">
+      </div>
+      <p class="photo-caption">Kanazawa. Beautiful. Also absolutely freezing. My body said no.</p>
+
+      <p>I made it to one spot (I genuinely cannot remember the name and I'm not going to pretend I do), walked around for a bit, took some photos, tried to enjoy it. I even saw someone in a full packed jacket visibly freezing outside. Me? Hoodie, sweater, no heattech. I don't want to talk about it. Back to the station, waited for the next train, accepted the situation. I genuinely could not enjoy the walk with that weather.</p>
+
+      <p>Osaka was next and I'll be honest with you: it didn't fully click for me the way I expected it to. The city is fine, the food is genuinely great, the people are great. I just didn't feel that thing I felt stepping out of Asakusa station for the first time. That pull. That immediate sense of yes, I want to know everything about this place. Osaka didn't give me that, and I couldn't explain why then and I still can't now. I wasn't planning a long stay anyway so it worked out fine.</p>
+
+      <div class="photo-grid-2 reveal">
+        <img src="images/japan1-tezaosakacastle.JPG" alt="Teza at Osaka Castle" style="object-position: center top;">
+        <img src="images/japan1-insideosakacastle.JPG" alt="Inside Osaka Castle" style="object-position: center 50%;">
+      </div>
+      <p class="photo-caption">Osaka Castle. Enormous. Built by Toyotomi Hideyoshi. That still counts for something.</p>
+
+      <p>I went to Osaka Castle, which is enormous in a way that catches you off guard even when you've seen photos. Went inside, read through all the history panels properly, stood in a place that Toyotomi Hideyoshi actually built with actual purpose behind it. That part hit differently when you know the history, when you know what this castle meant and what happened around it. The interior has been heavily renovated and the original atmosphere is honestly mostly gone, which is a bit of a shame. But Toyotomi Hideyoshi built this thing and I stood inside it. That still counts.</p>
+
+      <p>Two nights in Osaka, and that's enough. See you again someday, Osaka. Hopefully.</p>
+    </div>
+
+    <!-- HIMEJI -->
+    <div class="article-section reveal">
+      <h2>Himeji, on the way</h2>
+      <p>Before Kyoto I stopped at Himeji and I'm really glad I did because this place deserves its own mention. You walk straight out of the station and the castle is right there, sitting at the end of the main road like it's been waiting for everyone. No map needed, no navigation required. Just walk forward and it gets bigger the closer you get.</p>
+
+      <div class="photo-grid-2 reveal">
+        <img src="images/japan1-himejicastle.JPG" alt="Himeji Castle" style="object-position: center 30%;">
+        <img src="images/japan1-tezahimejicastle.JPG" alt="Teza at Himeji Castle" class="pos-top">
+      </div>
+      <p class="photo-caption">Himeji Castle. The walk from the station is part of the experience.</p>
+
+      <p>Two things happened here that I need to permanently document for the record. First: I ate dorayaki for the first time in my entire life. Doraemon's favourite food, the thing I had been vaguely aware of since I was six years old watching cartoons, and I finally ate one standing outside a castle in Japan. It tastes like a sweet pancake sandwich, comes in a bunch of flavours, and I liked it a lot. Worth the 20-something years of waiting. Second thing: matcha ice cream in winter.</p>
+
+      <img src="images/japan1-himejiicecream.JPG" alt="Matcha ice cream at Himeji" class="article-photo">
+      <p class="photo-caption">Matcha ice cream in the cold. I now understand everything.</p>
+
+      <p>I always thought it was a bit strange that Japanese people eat ice cream when it's already cold outside. Standing there in Himeji with a matcha cone in my hand I completely and fully understood. Cold matcha ice cream when it's already cold outside goes impossibly hard and I will not be taking questions.</p>
+
+      <p>The castle grounds are huge and very walkable, open space everywhere you look, unhurried energy all around. I ended up staying close to two hours just wandering and taking photos without once checking the time. That's also where my profile picture is from, by the way. That's usually the sign of a place doing something right.</p>
+    </div>
+
+    <!-- KYOTO -->
+    <div class="article-section reveal">
+      <h2>Kyoto</h2>
+      <p>I had read about the Onin War before this trip, the 10-year conflict that tore Kyoto apart in the 15th century and reshaped the whole power structure of Japan. I didn't seriously think I would ever actually stand in the city where it happened. But there I was.</p>
+
+      <p>Kyoto has a reputation, and if you've spent any time reading about it you know what kind of reputation I mean. A lot of people say it has a certain atmosphere at night, something that sits just slightly different from a normal city after dark. I won't say they're completely wrong about that because they're not. But I was curious and I wasn't willing to let a vibe stop me from exploring, so that first night I put my headphones in, picked a playlist, and walked around Ninenzaka around 9 or 10pm when it was quiet and mostly dark and the tourists had thinned out considerably.</p>
+
+      <div class="photo-grid-3 reveal">
+        <img src="images/japan1-ninenzaka.jpg" alt="Ninenzaka at night" style="object-position: center;">
+        <img src="images/japan1-ninenzakakyoto.JPG" alt="Ninenzaka Kyoto" style="object-position: center;">
+        <img src="images/japan1-tezaninenzaka.JPG" alt="Teza at Ninenzaka" style="object-position: center top;">
+      </div>
+      <p class="photo-caption">Ninenzaka, around 9-10pm. Headphones in, playlist on. That's how you explore.</p>
+
+      <p>The headphones helped more than I expected, honestly. It turns into a completely different experience when you have your own soundtrack. Found the iconic tower at the end of the street, was ready to get some good photos, and the lights were already off. Of course they were. Next time.</p>
+
+      <p>The next day more than made up for it. Sagano Scenic Railway in the morning, Nijo Castle in the afternoon, and both of them delivered.</p>
+
+      <div class="photo-grid-2 reveal">
+        <img src="images/japan1-saganoromantictrain.JPG" alt="Sagano Scenic Railway" style="object-position: center;">
+        <img src="images/japan1-aroundsaganoromantictrain.JPG" alt="Scenery from Sagano train" style="object-position: center;">
+      </div>
+      <p class="photo-caption">Sagano Scenic Railway. Old carriages, slow pace, colorful scenery the whole way. Worth every minute.</p>
+
+      <p>The Sagano train is popular for obvious reasons once you're on it: old wooden carriages, the train moving slowly enough that you can actually look at things, colorful scenery filling both windows the entire way. Packed with tourists and worth every minute of it regardless.</p>
+
+      <p>Then Nijo Castle, which has my favourite fun fact of any building I have ever personally visited. The floors throughout the castle were specifically engineered to squeak when walked on, designed to detect ninjas and assassins attempting to move through the building unnoticed at night. Whoever came up with that was not playing around.</p>
+
+      <div class="photo-grid-2 reveal">
+        <img src="images/japan1-tezanijocastle.JPG" alt="Teza at Nijo Castle" style="object-position: center top;">
+        <img src="images/japan1-nijocastlesunset.JPG" alt="Nijo Castle at sunset" style="object-position: center;">
+      </div>
+      <p class="photo-caption">Nijo Castle at golden hour. I didn't do anything special. The place just did it.</p>
+
+      <p>The castle grounds are also enormous and by the time I got there the light was turning golden, that specific late afternoon light that makes everything look like a painting. Every photo came out looking like it was professionally lit. I didn't do anything special, the place just did it. And the sunset at Nijo, I don't think anyone can argue with that. So calm. The kind of light that feels like it's being absorbed into you rather than just hitting your eyes. Standing in a 400 year old castle, knowing the full weight of the history under my feet, watching the sky turn.</p>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="article-section reveal">
+      <h2>The rest of it</h2>
+      <p>Some things don't fit neatly into a section. They just happened, and they were good.</p>
+
+      <div class="gallery-grid reveal">
+        <img src="images/japan1-omwtokyo.jpg" alt="On the way in Tokyo" style="object-position: center;">
+        <img src="images/japan1-chillcoffee.JPG" alt="Chill coffee session" style="object-position: center;">
+        <img src="images/japan1-pasmo.JPG" alt="Pasmo card" style="object-position: center;">
+        <img src="images/japan1-osakacapsule.jpg" alt="Osaka capsule hotel" style="object-position: center;">
+        <img src="images/japan1-osakaa.JPG" alt="Osaka streets" style="object-position: center;">
+        <img src="images/japan1-osakagallery.jpg" alt="Osaka castle area" style="object-position: center;">
+        <img src="images/japan1-kanazawagallery.jpg" alt="Kanazawa" style="object-position: center;">
+        <img src="images/japan1-saganogallery.JPG" alt="Sagano area" style="object-position: center;">
+        <img src="images/japan1-lastday.jpg" alt="Last day in Japan" style="object-position: center;">
+        <img src="images/japan1-airporthome.JPG" alt="Airport heading home" style="object-position: center;">
+        <img src="images/japan1-busairport.JPG" alt="Bus to airport" style="object-position: center;">
+        <img src="images/japan1-otwhome.JPG" alt="On the way home" style="object-position: center;">
+      </div>
+      <p class="photo-caption">Random moments, all of them good.</p>
+    </div>
+
+    <!-- CLOSING -->
+    <p class="article-closing reveal">Tokugawa. Musashi. Hideyoshi. I knew these names before I knew how to do my own laundry. And there I was, actually standing in their castles. Walking the same ground. Eating dorayaki for the first time at 29 like it was completely normal and not something I had been building up to since I was six years old watching Doraemon.</p>
+    <p class="article-closing reveal" style="margin-top: 1.5rem;">My very first solo trip abroad. First capsule hotel. First ramen that made every ramen I'd eaten before feel like a practice round. First time I felt completely at home somewhere I'd never been in my life. A lot of firsts, and honestly none of it felt planned, it just kind of happened and I went along with it.</p>
+    <p class="article-closing reveal" style="margin-top: 1.5rem;">Kanazawa almost ended me by the way. Hoodie, sweater, zero heattech. I saw it coming and did nothing to prevent it. Fully my fault.</p>
+    <p class="article-closing reveal" style="margin-top: 1.5rem;">I already miss the cold there. Not just cold in general, that specific Japan winter cold that hits you the second you step out of a station. The kind that makes everything feel sharper and more alive somehow. I don't know how to explain it better than that.</p>
+    <p class="article-closing reveal" style="margin-top: 1.5rem;">I'll be back. That's not a plan, that's a fact.</p>
+    <p class="article-closing reveal" style="margin-top: 1.5rem; font-size: 1rem;">See you on the next one.</p>
+
+    <a href="/#life" class="back-link reveal">← Back to Life</a>
+  </div>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <script>
+    // Progress bar
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      progressBar.style.width = progress + '%';
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // Image fade in on load
+    document.querySelectorAll('.article-photo, .photo-grid-2 img, .photo-grid-3 img, .gallery-grid img').forEach(img => {
+      if (img.complete) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => img.classList.add('loaded'));
+      }
+    });
+
+    // Hero parallax
+    const heroImg = document.getElementById('heroImg');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight) {
+        heroImg.style.transform = `translateY(${scrolled * 0.3}px)`;
+      }
+    });
+
+    // Back to top
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

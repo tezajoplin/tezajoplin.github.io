@@ -472,8 +472,16 @@
     /* ─── LIFE ─── */
     .life-grid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1.6fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--border);
+      margin-bottom: 1px;
+    }
+
+    .life-grid-row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 1px;
       background: var(--border);
       margin-bottom: 1px;
@@ -943,12 +951,21 @@
     </div>
 
     <div class="life-grid reveal reveal-delay-1">
-      <a href="life-japan2.html" class="life-card featured" style="background-image: linear-gradient(to top, rgba(18,17,16,0.9) 0%, rgba(18,17,16,0.4) 50%, rgba(18,17,16,0.1) 100%), url('images/japan2-hakuba.jpg'); background-size: cover; background-position: center; text-decoration: none;">
+      <a href="life-japan1.html" class="life-card featured" style="background-image: linear-gradient(to top, rgba(18,17,16,0.9) 0%, rgba(18,17,16,0.4) 50%, rgba(18,17,16,0.1) 100%), url('images/japan1-fujisan.jpg'); background-size: cover; background-position: center 60%; text-decoration: none;">
+        <div class="life-card-label" style="color: var(--accent);">Travel · Japan</div>
+        <div class="life-card-title">A kid from Pontianak, standing in Japan.</div>
+        <div class="life-card-desc">First solo trip. HKG → TYO → KNZ → OSA → KYO. One of the best decisions I've ever made.</div>
+        <div class="life-card-arrow">Read more →</div>
+      </a>
+      <a href="life-japan2.html" class="life-card featured" style="background-image: linear-gradient(to top, rgba(18,17,16,0.9) 0%, rgba(18,17,16,0.4) 50%, rgba(18,17,16,0.1) 100%), url('images/japan2-matsumoto1.jpg'); background-size: cover; background-position: center 60%; text-decoration: none;">
         <div class="life-card-label" style="color: var(--accent);">Travel</div>
         <div class="life-card-title">Japan, twice and counting.</div>
         <div class="life-card-desc">City vibes, winter weather, convenience stores at 3am. Japan lives rent-free in my head.</div>
         <div class="life-card-arrow">Read more →</div>
       </a>
+    </div>
+
+    <div class="life-grid-row2 reveal reveal-delay-2">
       <a href="life-kl.html" class="life-card featured" style="background-image: linear-gradient(to top, rgba(18,17,16,0.9) 0%, rgba(18,17,16,0.4) 50%, rgba(18,17,16,0.1) 100%), url('images/kl-bersinar.jpg'); background-size: cover; background-position: center 30%; text-decoration: none;">
         <div class="life-card-label" style="color: var(--accent);">Travel · Football</div>
         <div class="life-card-title">Bersinar FC, away to Kuala Lumpur.</div>
@@ -961,18 +978,6 @@
         <div class="life-card-desc">Playing football in Taipei with the boys. Different country, same chaos.</div>
         <div class="life-card-arrow">Read more →</div>
       </a>
-      <div class="life-card">
-        <div class="life-card-icon">⚽🏋️</div>
-        <div class="life-card-label">Football & Gym</div>
-        <div class="life-card-title">On the pitch and in the gym.</div>
-        <div class="life-card-desc">2–3x football a week, structured gym program. Training for the game, not the mirror.</div>
-      </div>
-      <div class="life-card">
-        <div class="life-card-icon">🗾</div>
-        <div class="life-card-label">Travel · Japan</div>
-        <div class="life-card-title">Japan, Part One.</div>
-        <div class="life-card-desc">Where it all started. First solo trip, first time feeling completely at home somewhere foreign.</div>
-      </div>
     </div>
 
     <div class="life-stats-row reveal reveal-delay-2">
