@@ -621,6 +621,54 @@
       position: relative;
     }
 
+    .blog-featured {
+      padding: 0 2.5rem 4rem;
+    }
+
+    .blog-featured-main {
+      display: block;
+      text-decoration: none;
+      max-width: 600px;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.2s;
+    }
+
+    .blog-featured-main:hover {
+      border-color: var(--accent);
+    }
+
+    .blog-featured-meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-featured-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .blog-featured-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .blog-read {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
     .blog-item:first-child { border-top: 1px solid var(--border); }
 
     .blog-item::before {
@@ -888,6 +936,10 @@
               <div class="stat-label">Clicks</div>
             </div>
           </div>
+          <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06);">
+            <p style="font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.75rem;">Clients acquired through organic search</p>
+            <p style="font-size: 0.85rem; color: var(--muted);">Koko Cici Jakarta 2026 &nbsp;·&nbsp; Holycow Sweet 16th &nbsp;·&nbsp; Prime Icon Coda 2026</p>
+          </div>
         </div>
         <span class="work-tag">Ongoing</span>
       </div>
@@ -1005,30 +1057,13 @@
     <div class="section-header reveal">
       <p class="section-label" data-index="03">Blog</p>
     </div>
-    <div class="blog-list">
-      <a href="#" class="blog-item reveal reveal-delay-1">
-        <span class="blog-item-num">01</span>
-        <div>
-          <p class="blog-item-cat">Work · SEO</p>
-          <p class="blog-item-title">What 6 weeks of SEO actually looks like</p>
-        </div>
-        <span class="blog-arrow">→</span>
-      </a>
-      <a href="#" class="blog-item reveal reveal-delay-2">
-        <span class="blog-item-num">02</span>
-        <div>
-          <p class="blog-item-cat">Explore · Travel</p>
-          <p class="blog-item-title">Why I keep coming back to Japan</p>
-        </div>
-        <span class="blog-arrow">→</span>
-      </a>
-      <a href="#" class="blog-item reveal reveal-delay-3">
-        <span class="blog-item-num">03</span>
-        <div>
-          <p class="blog-item-cat">Fit · Training</p>
-          <p class="blog-item-title">Training for the pitch, not the mirror</p>
-        </div>
-        <span class="blog-arrow">→</span>
+
+    <div class="blog-featured reveal reveal-delay-1">
+      <a href="blog-career.html" class="blog-featured-main">
+        <p class="blog-featured-meta">Career · June 2026</p>
+        <h3 class="blog-featured-title">I left operations for marketing. Here's what nobody told me.</h3>
+        <p class="blog-featured-desc">Shrimp farms, villa management, a laundry business. Then one day I decided to learn SEO. What followed was two years of figuring things out the hard way.</p>
+        <span class="blog-read">Read more →</span>
       </a>
     </div>
   </section>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I left operations for marketing — Teza Joplin</title>
+  <meta name="description" content="Shrimp farms, villa management, a laundry business. Then one day I decided to learn SEO. Here's what nobody told me about making the switch.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #121110;
+      --bg2: #1a1917;
+      --accent: #c8b89a;
+      --text: #e8e0d4;
+      --muted: #7a7065;
+      --max: 720px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 100;
+      transition: width 0.1s linear;
+    }
+
+    .nav-back {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 50;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--accent); }
+
+    .article-header {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 6rem 2rem 3rem;
+      border-bottom: 1px solid #2a2825;
+    }
+
+    .article-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .article-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .article-wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-intro {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #2a2825;
+    }
+
+    .article-intro p:first-child::first-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      line-height: 0.85;
+      float: left;
+      margin-right: 0.12em;
+      margin-top: 0.1em;
+      color: var(--accent);
+    }
+
+    .article-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .article-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.9rem;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .article-section p {
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2.5rem 0;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1.5;
+    }
+
+    .article-closing {
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .back-link:hover { border-color: var(--accent); }
+
+    .back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      background: var(--bg2);
+      border: 1px solid #2a2825;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 50;
+    }
+
+    .back-top.visible { opacity: 1; pointer-events: all; }
+
+    .back-top svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .article-header { padding: 5rem 1.25rem 2rem; }
+      .article-wrap { padding: 2.5rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <a href="/#blog" class="nav-back">← Back</a>
+
+  <div class="article-header">
+    <p class="article-tag">Blog — Career</p>
+    <h1 class="article-title">I left operations for marketing.<br>Here's what nobody told me.</h1>
+    <div class="article-meta">
+      <span>June 2026</span>
+      <span>Teza Joplin</span>
+      <span>8 min read</span>
+    </div>
+  </div>
+
+  <div class="article-wrap">
+
+    <div class="article-intro reveal">
+      <p>I was a football kid. Still am. Ask anyone who knows me and that's probably the first thing they'll say. Studied management with a concentration in entrepreneurship, graduated, and went straight back to Pontianak to manage a shrimp and milkfish farm.</p>
+      <p>From a city full of tall buildings to a village with brown rivers, wind, and the sound of literally just animals and silence. Shocked? Yes. Did I complain? Also yes, but only for a bit. I read somewhere that if you push through something uncomfortable for 21 days, you stop complaining and start adapting. Worked for me. Took less than 21 days actually. Make of that what you will.</p>
+      <p>Three years of mud, fish, and figuring things out. Good three years. But I was still young, there was too much world I hadn't seen yet, and travelling has always been something I genuinely need in my life, not a luxury, just part of how I function. I needed something new. So I chose Bali. Obvious choice, honestly. Who says no to Bali?</p>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>The Instagram ad that accidentally changed my life</h2>
+      <p>I was on break at the villa, scrolling Instagram like a normal human being trying to decompress, when a RevoU ad showed up. Full Stack Digital Marketing course.</p>
+      <p>Now here's the thing and this is the part that actually got me. I paused on that ad and thought: wait. Someone built a strategy specifically to reach me. They figured out my behaviour, my location, what kind of content I engage with, and placed this ad exactly where I'd see it at exactly the right moment. Not luck. A system someone built intentionally. And it worked on me.</p>
+      <p>I was fascinated before I even knew what the course was about.</p>
+      <p>In Indonesia, "marketing" usually means going out, talking to clients, convincing people to buy things. That is absolutely not me. I am not that person. But this was different. Technical, data-driven, largely laptop-based, and some companies even offer WFH or WFA. I care deeply about work life balance, genuinely, not just as a phrase people say. Football, gym, travelling, having actual time to live outside of work. Those things are not negotiable for me. A career that could flex around that life? That's exactly what I was looking for. This felt like it could actually fit.</p>
+      <p>The registration fee was expensive. I sold some of my stuff to pay for it.</p>
+      <p>For my own future, I'll do anything.</p>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>What nobody told me about digital marketing</h2>
+      <p>I walked in thinking it would be straightforward technical work. Turns out digital marketing has about fifteen different branches. SEO, SEM, performance marketing, social media specialist, content strategy, and more. I thought it was clean analysis and numbers. It's not. You need to understand human behaviour. You need to know what numbers actually mean, not just what they show. You need to think about the future and make educated guesses about it.</p>
+
+      <div class="pull-quote">Interesting? Genuinely yes. Hard? Kill me now.</div>
+
+      <p>But that's exactly what kept me coming back.</p>
+      <p>I was doing all of this while working full-time as a villa manager, by the way. The daily schedule looked like this: morning to evening at work, evening either football or gym, then class, then group projects, then maybe some gaming before bed if I was lucky. My friend once looked at me and said: "Teza, you live in Bali and your life is completely flat. No beach clubs, no parties, no sunsets." And I was like, bro. I don't even have time to breathe.</p>
+      <p>My one day off per week was always spent with my sister and her kids. That is Bali for me. Not the beach clubs. The family and the football.</p>
+      <p>Six months of that schedule. Genuinely one of the most exhausting periods of my life. Also completely worth it.</p>
+      <p>By month four I had to pick a concentration. I chose SEO. I can't fully explain the logic. I just liked writing and analysing things, and something about it clicked in a way the other tracks didn't. So I went with it.</p>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>What operations quietly taught me</h2>
+      <p>After finishing the main course I kept going and took the Advanced SEO bootcamp because I felt my knowledge still had gaps. Then somewhere in between all of this I started a laundry business back in Pontianak.</p>
+      <p>I didn't jump straight into a marketing job. There were reasons for that. But during the gaps, in between running the laundry and handling day-to-day operations, I'd open YouTube and watch SEO content. Not every single day. But 30 minutes of learning during a quiet afternoon beats lying in bed doing nothing, every time.</p>
+      <p>What I only realized much later: everything I learned running operations was quietly preparing me for marketing in ways I didn't expect. Time management. Adapting fast when things change. Staying calm when a situation doesn't go according to plan. Managing people, deadlines, and expectations all at once. Nobody teaches you that in a classroom. You pick it up by actually doing things. Running a farm, managing a villa, building a business from scratch.</p>
+      <p>At the end of 2025 I took one more course. Performance marketing this time. Not because I was done with SEO. I wanted to expand what I knew. Turns out it was just as hard as everything else. But again, somehow, I enjoyed it. I still don't fully understand why I enjoy hard things. Maybe that's just how I'm built.</p>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>Where I am now</h2>
+      <p>A couple of months after finishing, a friend asked me to help manage the website he was building. Votelino.id, a paid voting platform for event organizers in Indonesia. I said yes immediately. I had no real portfolio to show at that point, and this was a live project with actual stakes. Made sense.</p>
+      <p>When I came in, GA4 wasn't set up. Search Console wasn't connected. No keyword strategy, no content plan, nothing. Built everything from zero.</p>
+      <p>Three months later: 1,480 impressions, 127 clicks, average position 4.9, and three real clients that came in through organic search alone. About one per month. Not bad for someone who's still figuring things out.</p>
+      <p>I'm not an expert. I have a long way to go and I genuinely know that. But I think this is a decent start.</p>
+    </div>
+
+    <div class="article-section reveal">
+      <h2>For whoever's reading this while thinking about making the switch</h2>
+      <p>When I was taking that RevoU course, most of my classmates were already working professionals. Oil and gas, virtual assistants, plantation workers, even stay-at-home mothers who wanted to do something with their time. All from completely different backgrounds. All wanting something different for themselves. All with their own reasons I'll never fully know.</p>
+      <p>Two years later, they're all working in digital marketing. The skills transferred. The hard work paid off.</p>
+
+      <div class="pull-quote">They became my motivation without even knowing it. And I mean that genuinely.</div>
+    </div>
+
+    <a href="/#blog" class="back-link reveal">← Back to Blog</a>
+  </div>
+
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <script>
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
