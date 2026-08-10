@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Teza Joplin</title>
+  <meta name="description" content="Projects Teza Joplin has actually built or contributed to — SEO, content, and web builds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #121110;
+      --bg2: #1a1917;
+      --bg3: #22201e;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0ede8;
+      --muted: #a8a49e;
+      --dim: #5a5650;
+      --accent: #c8b89a;
+      --green: #4a7c59;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ─── NAV (identical to index.html) ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(18,17,16,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .nav-links a.active { color: var(--accent); background: rgba(200,184,154,0.1); }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+
+    .nav-cv {
+      border: 1px solid var(--accent) !important;
+      color: var(--accent) !important;
+      padding: 0.35rem 0.85rem !important;
+      border-radius: 2px;
+      font-size: 0.75rem !important;
+      letter-spacing: 0.08em;
+    }
+    .nav-cv:hover { background: rgba(200,184,154,0.1) !important; }
+
+    /* ─── HERO ─── */
+    .pf-hero {
+      padding: 9rem 2.5rem 4rem;
+      max-width: 900px;
+    }
+    .pf-kicker {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .pf-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .pf-hero h1 em { color: var(--accent); font-style: italic; }
+    .pf-hero p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 540px;
+      line-height: 1.8;
+    }
+
+    /* ─── GRID ─── */
+    .pf-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin: 0 2.5rem 6rem;
+      border: 1px solid var(--border);
+    }
+
+    .pf-card {
+      background: var(--bg2);
+      padding: 2.5rem;
+      position: relative;
+      transition: background 0.25s;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      min-height: 220px;
+    }
+    .pf-card:hover { background: var(--bg3); }
+
+    .pf-card-num {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--border);
+      margin-bottom: 1.5rem;
+    }
+    .pf-card:hover .pf-card-num { color: var(--dim); }
+
+    .pf-card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+      position: relative;
+      display: inline-block;
+    }
+    .pf-card-title::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .pf-card:hover .pf-card-title::after { width: 100%; }
+
+    .pf-card-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 1.25rem;
+    }
+
+    .pf-card-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .pf-card-tag.live { border-color: var(--green); color: var(--green); }
+    .pf-card-tag.soon { border-color: var(--border); color: var(--dim); }
+
+    .pf-card.placeholder { cursor: default; }
+    .pf-card.placeholder:hover { background: var(--bg2); }
+    .pf-card.placeholder .pf-card-title { color: var(--dim); }
+    .pf-card.placeholder .pf-card-title::after { display: none; }
+
+    footer {
+      padding: 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--dim);
+    }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 760px) {
+      .pf-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">TJ</a>
+    <ul class="nav-links">
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/portfolio/" class="active">Portfolio</a></li>
+      <li><a href="/#life">Life</a></li>
+      <li><a href="/#blog">Blog</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/Teza-Joplin-Resume.pdf" download class="nav-cv">Resume</a></li>
+    </ul>
+  </nav>
+
+  <section class="pf-hero">
+    <div class="pf-kicker">Portfolio</div>
+    <h1>What I've <em>built.</em></h1>
+    <p>Work is what I do professionally. This is the other half, the projects I've actually built or contributed to, start to finish. Each one links out to the full case study.</p>
+  </section>
+
+  <div class="pf-grid">
+
+    <a href="bsn/" class="pf-card">
+      <div class="pf-card-num">01</div>
+      <div class="pf-card-title">BSN</div>
+      <p class="pf-card-desc">Case study coming soon.</p>
+      <span class="pf-card-tag soon">In progress</span>
+    </a>
+
+    <div class="pf-card placeholder">
+      <div class="pf-card-num">02</div>
+      <div class="pf-card-title">NOIR</div>
+      <p class="pf-card-desc">Case study coming soon.</p>
+      <span class="pf-card-tag soon">Coming soon</span>
+    </div>
+
+    <div class="pf-card placeholder">
+      <div class="pf-card-num">03</div>
+      <div class="pf-card-title">The Hobblers</div>
+      <p class="pf-card-desc">Case study coming soon.</p>
+      <span class="pf-card-tag soon">Coming soon</span>
+    </div>
+
+    <div class="pf-card placeholder">
+      <div class="pf-card-num">04</div>
+      <div class="pf-card-title">Future Projects</div>
+      <p class="pf-card-desc">More case studies land here as they're built.</p>
+      <span class="pf-card-tag soon">Reserved</span>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 Teza Joplin Paelongan</span>
+    <a href="/">← Back to home</a>
+  </footer>
+
+</body>
+</html>
