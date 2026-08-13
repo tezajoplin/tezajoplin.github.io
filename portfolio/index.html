@@ -134,13 +134,47 @@
       background: var(--bg2);
       padding: 2.5rem;
       position: relative;
-      transition: background 0.25s;
+      overflow: hidden;
+      transition: background 0.25s, transform 0.25s;
       text-decoration: none;
       color: var(--text);
       display: block;
       min-height: 220px;
     }
-    .pf-card:hover { background: var(--bg3); }
+    .pf-card:hover { background: var(--bg3); transform: translateY(-3px); }
+    .pf-card > * { position: relative; z-index: 2; }
+
+    .pf-card.has-image {
+      background-size: cover;
+      background-position: center 25%;
+      filter: saturate(0.85);
+    }
+    .pf-card.has-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(195deg, rgba(18,17,16,0.72) 0%, rgba(18,17,16,0.94) 55%, rgba(18,17,16,0.99) 100%);
+      transition: background 0.25s;
+      z-index: 1;
+    }
+    .pf-card.has-image:hover::before {
+      background: linear-gradient(195deg, rgba(18,17,16,0.6) 0%, rgba(18,17,16,0.88) 55%, rgba(18,17,16,0.97) 100%);
+    }
+
+    .pf-card-bignum {
+      position: absolute;
+      right: 0.75rem;
+      bottom: -1.4rem;
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 7.5rem;
+      line-height: 1;
+      color: rgba(240,237,232,0.045);
+      pointer-events: none;
+      z-index: 1;
+      transition: color 0.25s;
+    }
+    .pf-card:hover .pf-card-bignum { color: rgba(240,237,232,0.075); }
 
     .pf-card-num {
       font-family: 'DM Serif Display', serif;
@@ -150,6 +184,7 @@
       margin-bottom: 1.5rem;
     }
     .pf-card:hover .pf-card-num { color: var(--dim); }
+    .pf-card.has-image .pf-card-num { color: rgba(240,237,232,0.5); }
 
     .pf-card-title {
       font-family: 'DM Serif Display', serif;
@@ -234,15 +269,16 @@
 
   <div class="pf-grid">
 
-    <a href="bsn/" class="pf-card">
+    <a href="bsn/" class="pf-card has-image" style="background-image: url('bsn/assets/bsn-thumb.jpg');">
       <div class="pf-card-num">01</div>
       <div class="pf-card-title">BSN</div>
       <p class="pf-card-desc">Palm oil derivatives company website redesign.</p>
-      <span class="pf-card-tag soon">VIEW CASE STUDY</span>
+      <span class="pf-card-tag">View Case Study</span>
     </a>
 
     <div class="pf-card placeholder">
       <div class="pf-card-num">02</div>
+      <div class="pf-card-bignum">N</div>
       <div class="pf-card-title">NOIR</div>
       <p class="pf-card-desc">Case study coming soon.</p>
       <span class="pf-card-tag soon">Coming soon</span>
@@ -250,6 +286,7 @@
 
     <div class="pf-card placeholder">
       <div class="pf-card-num">03</div>
+      <div class="pf-card-bignum">H</div>
       <div class="pf-card-title">The Hobblers</div>
       <p class="pf-card-desc">Case study coming soon.</p>
       <span class="pf-card-tag soon">Coming soon</span>
@@ -257,6 +294,7 @@
 
     <div class="pf-card placeholder">
       <div class="pf-card-num">04</div>
+      <div class="pf-card-bignum">+</div>
       <div class="pf-card-title">Future Projects</div>
       <p class="pf-card-desc">More case studies land here as they're built.</p>
       <span class="pf-card-tag soon">Reserved</span>
