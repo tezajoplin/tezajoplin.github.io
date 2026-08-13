@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BSN — Portfolio — Teza Joplin</title>
-  <meta name="description" content="Case study: BSN. Coming soon.">
+  <title>BSN — Case Study — Teza Joplin</title>
+  <meta name="description" content="Case study: reframing PT. Berkah Sawit Nusantara's company website into a business profile.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -12,6 +12,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      --gx-left: 4rem;
+      --gx-right: 2.5rem;
       --bg: #121110;
       --bg2: #1a1917;
       --border: rgba(255,255,255,0.08);
@@ -19,6 +21,7 @@
       --muted: #a8a49e;
       --dim: #5a5650;
       --accent: #c8b89a;
+      --green: #4a7c59;
     }
 
     html { scroll-behavior: smooth; }
@@ -30,9 +33,10 @@
       line-height: 1.6;
     }
 
+    /* ─── NAV (unchanged from site) ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 1.25rem 2.5rem;
+      padding: 1.25rem var(--gx-right) 1.25rem var(--gx-left);
       display: flex; justify-content: space-between; align-items: center;
       background: rgba(18,17,16,0.92);
       backdrop-filter: blur(16px);
@@ -47,41 +51,144 @@
     }
     .nav-links a.active { color: var(--accent); background: rgba(200,184,154,0.1); }
     .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+    .nav-cv {
+      border: 1px solid var(--accent) !important; color: var(--accent) !important;
+      padding: 0.35rem 0.85rem !important; border-radius: 2px; font-size: 0.75rem !important;
+    }
+    .nav-cv:hover { background: rgba(200,184,154,0.1) !important; }
 
     .breadcrumb {
-      padding: 8rem 2.5rem 0;
+      padding: 8rem var(--gx-right) 0 var(--gx-left);
       font-size: 0.75rem;
       color: var(--dim);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.03em;
     }
     .breadcrumb a { color: var(--dim); text-decoration: none; }
     .breadcrumb a:hover { color: var(--accent); }
 
-    .stub {
-      min-height: 60vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 2rem 2.5rem 8rem;
-      max-width: 700px;
+    /* ─── HERO ─── */
+    .cs-hero {
+      max-width: 760px;
+      padding: 3.5rem var(--gx-right) 0 var(--gx-left);
     }
-    .stub-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
+    .cs-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 1rem;
+      margin-bottom: 1.75rem;
     }
-    .stub h1 {
+    .cs-title {
       font-family: 'DM Serif Display', serif;
       font-weight: 400;
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-size: clamp(2.1rem, 4.8vw, 3.1rem);
+      line-height: 1.15;
       margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
     }
-    .stub p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; }
+    .cs-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 600px;
+      margin-bottom: 1.75rem;
+      font-weight: 300;
+    }
+    .cs-meta {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ─── HERO IMAGE ─── */
+    .cs-visual {
+      margin: 3rem var(--gx-right) 0 var(--gx-left);
+      aspect-ratio: 16 / 10;
+      max-width: 1100px;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .cs-visual-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: center;
+    }
+    .cs-visual-label span {
+      display: block;
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .cs-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    /* ─── PROJECT OVERVIEW (compact editorial) ─── */
+    .cs-overview {
+      max-width: 900px;
+      margin: 4rem var(--gx-right) 0 var(--gx-left);
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.25rem 2rem;
+    }
+    .cs-ov-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding-top: 0.15rem;
+    }
+    .cs-ov-value {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .cs-ov-value a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(200,184,154,0.35);
+    }
+    .cs-ov-value a:hover { border-color: var(--accent); }
+    .cs-status-live { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .cs-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; }
+
+    /* ─── INTRODUCTION ─── */
+    .cs-intro {
+      max-width: 700px;
+      margin: 4rem var(--gx-right) 7rem var(--gx-left);
+    }
+    .cs-intro p {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.4rem;
+      max-width: 620px;
+    }
+    .cs-intro p.emphasis {
+      color: var(--text);
+    }
 
     footer {
-      padding: 2.5rem;
+      padding: 2.5rem var(--gx-right) 2.5rem var(--gx-left);
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
@@ -91,7 +198,273 @@
     footer a { color: var(--dim); text-decoration: none; }
     footer a:hover { color: var(--accent); }
 
-    @media (max-width: 760px) { .nav-links { display: none; } }
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .cs-overview { grid-template-columns: 1fr; }
+      .cs-ov-label { padding-top: 0; }
+    }
+
+    /* ═══════════ NARRATIVE SECTIONS (01–12) ═══════════ */
+
+    .num-section {
+      padding: 5.5rem var(--gx-right) 0 var(--gx-left);
+      position: relative;
+      overflow: hidden;
+    }
+    .num-section.tight { padding-top: 4rem; }
+    .num-section[data-num]::after {
+      content: attr(data-num);
+      position: absolute;
+      top: -0.5rem;
+      right: var(--gx-right);
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(6rem, 15vw, 12rem);
+      line-height: 1;
+      color: rgba(240,237,232,0.035);
+      pointer-events: none;
+      z-index: 0;
+      user-select: none;
+    }
+    .num-section > * { position: relative; z-index: 1; }
+
+    .num-text {
+      max-width: 660px;
+    }
+    .num-label {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--dim);
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .num-heading {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      max-width: 560px;
+    }
+    .num-body p {
+      font-size: 0.96rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 1.3rem;
+      max-width: 600px;
+    }
+    .num-transition {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin-top: 1.75rem;
+      max-width: 500px;
+    }
+
+    /* full editorial image */
+    .num-figure {
+      margin: 3rem var(--gx-right) 0 var(--gx-left);
+      max-width: 1100px;
+    }
+    .num-figure img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--border);
+    }
+    .num-figure figcaption {
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--dim);
+      margin-top: 0.9rem;
+    }
+
+    /* before/after compare */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin: 3rem var(--gx-right) 0 var(--gx-left);
+      max-width: 1100px;
+      border: 1px solid var(--border);
+    }
+    .compare figure { background: var(--bg); margin: 0; }
+    .compare img { width: 100%; display: block; }
+    .compare figcaption {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 0.9rem 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* IA diagram (typographic, not corporate flowchart) */
+    .ia-diagram {
+      margin: 3rem var(--gx-right) 0 var(--gx-left);
+      max-width: 460px;
+    }
+    .ia-step {
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ia-step:first-child { border-top: 1px solid var(--border); }
+    .ia-step-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .ia-step-q {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .ia-arrow {
+      text-align: center;
+      color: var(--dim);
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
+    }
+
+    /* clean editorial list (What Changed) */
+    .edit-list { margin: 2.5rem var(--gx-right) 0 var(--gx-left); max-width: 660px; }
+    .edit-item {
+      padding: 1.4rem 0;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 1rem;
+    }
+    .edit-item:last-child { border-bottom: 1px solid var(--border); }
+    .edit-num {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      color: var(--dim);
+      font-size: 0.95rem;
+    }
+    .edit-title {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .edit-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* code sequence — offset, not equal cards */
+    .code-sequence {
+      margin: 3rem var(--gx-right) 0 var(--gx-left);
+      max-width: 1050px;
+      position: relative;
+    }
+    .code-sequence img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--border);
+      margin-bottom: 1.1rem;
+    }
+    .code-sequence .cs-cap {
+      font-size: 0.7rem;
+      color: var(--dim);
+      letter-spacing: 0.04em;
+      margin-bottom: 2.2rem;
+    }
+
+    /* final gallery */
+    .result-gallery {
+      margin: 3rem var(--gx-right) 0 var(--gx-left);
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .result-gallery .g-main { grid-column: 1 / 3; aspect-ratio: 16/8; overflow: hidden; }
+    .result-gallery .g-main img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .result-gallery figure { background: var(--bg); margin: 0; }
+    .result-gallery figure:not(.g-main) img { width: 100%; height: auto; display: block; }
+
+    /* final CTA */
+    .final-cta {
+      margin-top: 6rem;
+      padding: 5rem var(--gx-right) 5rem var(--gx-left);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .final-cta .fc-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .final-cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+      margin-bottom: 1.75rem;
+    }
+    .final-cta .fc-link {
+      display: inline-block;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(200,184,154,0.4);
+      padding-bottom: 2px;
+    }
+    .final-cta .fc-link:hover { border-color: var(--accent); }
+
+    @media (max-width: 700px) {
+      .compare { grid-template-columns: 1fr; }
+      .result-gallery { grid-template-columns: 1fr; }
+      .result-gallery .g-main { grid-row: auto; }
+      .edit-item { grid-template-columns: 1.5rem 1fr; }
+    }
+
+    /* Section 08 — SEO Foundation editorial grid */
+    .seo-grid {
+      margin: 3.5rem var(--gx-right) 0 var(--gx-left);
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+    }
+    .seo-cat {
+      padding: 2.4rem 2.6rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .seo-cat-label {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--dim);
+      margin-bottom: 1.4rem;
+    }
+    .seo-cat ul { list-style: none; }
+    .seo-cat li {
+      font-size: 0.92rem;
+      color: var(--muted);
+      padding: 0.55rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .seo-cat li:first-child { border-top: none; }
+
+    @media (max-width: 760px) {
+      .seo-grid { grid-template-columns: 1fr; margin-left: 0; margin-right: 0; }
+      .seo-cat { padding: 2rem 0; margin: 0 var(--gx-right) 0 var(--gx-left); border-right: none; }
+    }
   </style>
 </head>
 <body>
@@ -110,11 +483,353 @@
 
   <p class="breadcrumb"><a href="/portfolio/">Portfolio</a> / BSN</p>
 
-  <section class="stub">
-    <div class="stub-label">Case Study</div>
-    <h1>BSN</h1>
-    <p>This case study is still being written. Come back soon for the full story, context, what was built, and the results.</p>
+  <section class="cs-hero">
+    <div class="cs-eyebrow">Case Study · 2026</div>
+    <h1 class="cs-title">PT. Berkah Sawit Nusantara</h1>
+    <p class="cs-subtitle">Reframing a company website into a business profile.</p>
+    <div class="cs-meta">Corporate Website &nbsp;·&nbsp; Front-end Development &nbsp;·&nbsp; SEO Foundation</div>
   </section>
+
+  <div class="cs-visual">
+    <img src="assets/bsn-homepage.jpg" alt="BSN homepage — bsnindo.com">
+  </div>
+
+  <section class="cs-overview">
+    <div class="cs-ov-label">Client</div>
+    <div class="cs-ov-value">PT. Berkah Sawit Nusantara</div>
+
+    <div class="cs-ov-label">Role</div>
+    <div class="cs-ov-value">Website Strategy &nbsp;·&nbsp; UX/UI Design &nbsp;·&nbsp; Content Structure &nbsp;·&nbsp; Front-end Development &nbsp;·&nbsp; SEO Foundation</div>
+
+    <div class="cs-ov-label">Status</div>
+    <div class="cs-ov-value">
+      <span class="cs-status-live"><span class="cs-status-dot"></span> Live — <a href="https://bsnindo.com" target="_blank" rel="noopener">bsnindo.com</a></span>
+    </div>
+  </section>
+
+  <section class="cs-intro">
+    <p>BSN came to me with a website that already had the basic information in place, but something was missing.</p>
+    <p>It explained what the company sold, but it didn't quite communicate who the company was.</p>
+    <p class="emphasis">The challenge was not simply to make it look better. It was to make the website feel like a proper representation of the business behind it.</p>
+  </section>
+
+  <!-- 01 — THE STARTING POINT -->
+  <section class="num-section" data-num="01">
+    <div class="num-text">
+      <div class="num-label">01 — The Starting Point</div>
+      <h2 class="num-heading">The website had the information.<br>It needed a reason to believe.</h2>
+      <div class="num-body">
+        <p>The original website focused heavily on products and basic company information.</p>
+        <p>Nothing was necessarily wrong with that. But I felt the website could do more.</p>
+        <p>A potential buyer needs to understand who they're dealing with, what the company offers, and why they should trust it before they ever send an enquiry.</p>
+        <p>The original experience didn't create that journey clearly enough.</p>
+      </div>
+      <p class="num-transition">So I started by stepping back from the design itself.<br>What should a visitor understand first? What should they see next? And what should make them confident enough to start a conversation?</p>
+    </div>
+  </section>
+
+  <figure class="num-figure">
+    <img src="assets/bsn-before.jpg" alt="The original BSN website before the redesign">
+    <figcaption>The starting point — the original BSN website.</figcaption>
+  </figure>
+
+  <!-- 02 — THE SHIFT -->
+  <section class="num-section" data-num="02">
+    <div class="num-text">
+      <div class="num-label">02 — The Shift</div>
+      <h2 class="num-heading">From a product website<br>to a company worth knowing.</h2>
+      <div class="num-body">
+        <p>The whole design was built around a simple idea: "the website should communicate the business, not just the products."</p>
+        <p>That meant changing more than colours and layouts. I ended up reworking the visual direction, page structure, content hierarchy, product presentation, and even the way a visitor moves toward an enquiry.</p>
+        <p>I wanted the first impression to do some of the talking before someone even started reading that this is a real company. They know what they're doing. I can trust them enough to start a conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="compare">
+    <figure>
+      <img src="assets/bsn-before.jpg" alt="Before — original BSN homepage">
+      <figcaption>Before</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/bsn-homepage.jpg" alt="After — redesigned BSN homepage">
+      <figcaption>After</figcaption>
+    </figure>
+  </div>
+
+  <!-- 03 — BUILDING THE STRUCTURE -->
+  <section class="num-section" data-num="03">
+    <div class="num-text">
+      <div class="num-label">03 — Building the Structure</div>
+      <h2 class="num-heading">A clearer story, page by page.</h2>
+      <div class="num-body">
+        <p>I built the new structure around the questions a potential buyer would probably have.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ia-diagram">
+    <div class="ia-step">
+      <div class="ia-step-name">Home</div>
+      <div class="ia-step-q">Who is BSN and what do they do?</div>
+    </div>
+    <div class="ia-arrow">↓</div>
+    <div class="ia-step">
+      <div class="ia-step-name">About</div>
+      <div class="ia-step-q">Where do they operate, and what kind of company are they?</div>
+    </div>
+    <div class="ia-arrow">↓</div>
+    <div class="ia-step">
+      <div class="ia-step-name">Products</div>
+      <div class="ia-step-q">What exactly do they offer, and what are the specifications?</div>
+    </div>
+    <div class="ia-arrow">↓</div>
+    <div class="ia-step">
+      <div class="ia-step-name">Why BSN</div>
+      <div class="ia-step-q">Why should a buyer choose them?</div>
+    </div>
+    <div class="ia-arrow">↓</div>
+    <div class="ia-step">
+      <div class="ia-step-name">Contact</div>
+      <div class="ia-step-q">What happens when someone is ready to talk?</div>
+    </div>
+  </div>
+
+  <section class="num-section tight">
+    <div class="num-text">
+      <p class="num-transition">This turned the website into more than a collection of pages.<br>It started to tell a story about the business.</p>
+    </div>
+  </section>
+
+  <!-- 04 — THE VISUAL DIRECTION -->
+  <section class="num-section" data-num="04">
+    <div class="num-text">
+      <div class="num-label">04 — The Visual Direction</div>
+      <h2 class="num-heading">Quiet confidence, not another commodity website.</h2>
+      <div class="num-body">
+        <p>The original visual language didn't quite match with the kind of company BSN needed to present itself as.</p>
+        <p>I wanted the redesign to feel established, industrial, and trustworthy, without falling into the usual corporate template look (You know what I mean :D). The visual system was built around:</p>
+      </div>
+      <div class="edit-list" style="margin-left: 0;">
+        <div class="edit-item"><div class="edit-num">—</div><div><div class="edit-title">Deep navy</div><div class="edit-desc">A natural fit for the industrial side of the business.</div></div></div>
+        <div class="edit-item"><div class="edit-num">—</div><div><div class="edit-title">Warm orange</div><div class="edit-desc">Kept as a subtle connection to BSN's existing identity.</div></div></div>
+        <div class="edit-item"><div class="edit-num">—</div><div><div class="edit-title">Editorial typography</div><div class="edit-desc">Giving the company profile a more distinctive and considered character.</div></div></div>
+        <div class="edit-item"><div class="edit-num">—</div><div><div class="edit-title">Realistic industrial imagery</div><div class="edit-desc">Because the business should feel like something real, not just a brand template we usually found on the internet.</div></div></div>
+      </div>
+      <p class="num-transition" style="margin-left: 0;">The result was intentionally restrained. The website didn't need to shout. It needed to feel credible.</p>
+    </div>
+  </section>
+
+  <figure class="num-figure">
+    <img src="assets/bsn-about.jpg" alt="BSN About page">
+  </figure>
+
+  <!-- 05 — THE HOMEPAGE -->
+  <section class="num-section" data-num="05">
+    <div class="num-text">
+      <div class="num-label">05 — The Homepage</div>
+      <h2 class="num-heading">The first few seconds matter.</h2>
+      <div class="num-body">
+        <p>The homepage became the starting point for the entire experience.</p>
+        <p>Instead of opening with a generic company statement, the hero gets straight to the point: what BSN does, where it operates, and what it offers to the buyer.</p>
+        <p>From there, the page moves through company context, capabilities, products, differentiators, and finally the enquiry. The order was deliberate.</p>
+      </div>
+      <p class="num-transition">Understand → trust → explore → enquire.</p>
+    </div>
+  </section>
+
+  <figure class="num-figure" style="max-width: 640px;">
+    <img src="assets/bsn-homepage-tall.jpg" alt="BSN homepage, full hero and stats section">
+    <figcaption>Establishing credibility before asking the visitor to enquire.</figcaption>
+  </figure>
+
+  <!-- 06 — PRODUCTS AS A BUSINESS TOOL -->
+  <section class="num-section" data-num="06">
+    <div class="num-text">
+      <div class="num-label">06 — Products as a Business Tool</div>
+      <h2 class="num-heading">Products should be easy to understand, not just easy to list.</h2>
+      <div class="num-body">
+        <p>I redesigned the product section around one thing -> making the information easier to understand.</p>
+        <p>Each product gets its own space, visual identity, description, and relevant specifications.</p>
+        <p>I didn't want to throw every technical detail at the visitor at once. The idea was to make the right information easy to find when someone actually needs it.</p>
+      </div>
+    </div>
+  </section>
+
+  <figure class="num-figure">
+    <img src="assets/bsn-products-matrix.jpg" alt="BSN product specification matrix">
+    <figcaption>Turning product information into something a buyer can actually evaluate.</figcaption>
+  </figure>
+
+  <!-- 07 — DESIGNING FOR ENQUIRY -->
+  <section class="num-section" data-num="07">
+    <div class="num-text">
+      <div class="num-label">07 — Designing for Enquiry</div>
+      <h2 class="num-heading">The website eventually has to lead somewhere.</h2>
+      <div class="num-body">
+        <p>A corporate website can look beautiful and still be frustrating if the visitor doesn't know what to do next.</p>
+        <p>So I treated the enquiry path as part of the experience, not something to figure out at the end.</p>
+        <p>The contact page makes it clearer what someone should provide such as product interest, volume, destination, packaging preference, and timeline. Across the site, the CTA is ultimately pointing to the same thing: start a conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <figure class="num-figure">
+    <img src="assets/bsn-contact.jpg" alt="BSN contact page">
+    <figcaption>Moving from interest to a clear business enquiry.</figcaption>
+  </figure>
+
+  <!-- 08 — SEO FOUNDATION -->
+  <section class="num-section" data-num="08">
+    <div class="num-text">
+      <div class="num-label">08 — SEO Foundation</div>
+      <h2 class="num-heading">SEO was built into the structure, not added at the end.</h2>
+      <div class="num-body">
+        <p>This wasn't a huge SEO campaign with hundreds of pages. It was a company website, so I focused on getting the basics right from the start.</p>
+        <p>The goal was pretty simple. Make it clear to both search engines and people what each page is actually about.</p>
+      </div>
+    </div>
+
+    <div class="seo-grid">
+      <div class="seo-cat">
+        <div class="seo-cat-label">01 — On-Page</div>
+        <ul>
+          <li>Page titles</li>
+          <li>Meta descriptions</li>
+          <li>Keyword-aware content</li>
+          <li>Semantic HTML structure</li>
+        </ul>
+      </div>
+      <div class="seo-cat">
+        <div class="seo-cat-label">02 — Technical</div>
+        <ul>
+          <li>Canonical URLs</li>
+          <li>sitemap.xml</li>
+          <li>robots.txt</li>
+          <li>Crawlable static HTML</li>
+        </ul>
+      </div>
+      <div class="seo-cat">
+        <div class="seo-cat-label">03 — Content</div>
+        <ul>
+          <li>Clear page architecture</li>
+          <li>Company context</li>
+          <li>Product-focused content</li>
+          <li>Internal linking</li>
+        </ul>
+      </div>
+      <div class="seo-cat">
+        <div class="seo-cat-label">04 — Social</div>
+        <ul>
+          <li>Open Graph metadata</li>
+          <li>Social sharing metadata</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="num-text">
+      <p class="num-transition" style="margin-left: 0;">For me, SEO here wasn't just about adding keywords. It was about making sure the structure of the website made sense in the first place.</p>
+    </div>
+  </section>
+
+  <figure class="num-figure" style="max-width: 700px;">
+    <img src="assets/bsn-code-html.jpg" alt="BSN site head — meta tags and SEO markup">
+  </figure>
+
+  <!-- 09 — BUILDING IT -->
+  <section class="num-section" data-num="09">
+    <div class="num-text">
+      <div class="num-label">09 — Building It</div>
+      <h2 class="num-heading">I didn't start with a finished design file.</h2>
+      <div class="num-body">
+        <p>I started with the structure. I figured out the site architecture, the hierarchy, and what each page actually needed to do.</p>
+        <p>For implementation, I used Claude Code to accelerate the coding process. But AI wasn't the finish line.</p>
+        <p>The generated code was just the starting point. I tested it, looked at what actually showed up on screen, changed what felt wrong, and kept refining it manually by using VS Code.</p>
+        <p>There was a lot of: generate → test → notice → change → repeat.</p>
+      </div>
+      <p class="num-transition">Some of the most important decisions happened after the first version already existed.<br>That's where the website started becoming mine, rather than simply something generated by a tool.</p>
+    </div>
+  </section>
+
+  <div class="code-sequence">
+    <img src="assets/bsn-code-css.jpg" alt="BSN design system — CSS variables">
+    <div class="cs-cap">The design system, defined once in CSS variables.</div>
+    <img src="assets/bsn-code-js.jpg" alt="BSN site interaction script">
+    <div class="cs-cap">Site interactions, kept lightweight and dependency-free.</div>
+  </div>
+
+  <!-- 10 — WHAT CHANGED -->
+  <section class="num-section" data-num="10">
+    <div class="num-text">
+      <div class="num-label">10 — What Changed</div>
+      <h2 class="num-heading">The difference isn't only visual.</h2>
+    </div>
+  </section>
+
+  <div class="edit-list">
+    <div class="edit-item">
+      <div class="edit-num">01</div>
+      <div><div class="edit-title">A stronger first impression</div><div class="edit-desc">The company feels more established from the first interaction.</div></div>
+    </div>
+    <div class="edit-item">
+      <div class="edit-num">02</div>
+      <div><div class="edit-title">A clearer information hierarchy</div><div class="edit-desc">Visitors can move from company → products → differentiators → enquiry more naturally.</div></div>
+    </div>
+    <div class="edit-item">
+      <div class="edit-num">03</div>
+      <div><div class="edit-title">A more deliberate product experience</div><div class="edit-desc">Products are presented with context, not just listed on a page.</div></div>
+    </div>
+    <div class="edit-item">
+      <div class="edit-num">04</div>
+      <div><div class="edit-title">A clearer conversion path</div><div class="edit-desc">Visitors have a clearer path toward starting a conversation.</div></div>
+    </div>
+    <div class="edit-item">
+      <div class="edit-num">05</div>
+      <div><div class="edit-title">An SEO-ready foundation</div><div class="edit-desc">The technical and content structure gives the site a better foundation for SEO.</div></div>
+    </div>
+  </div>
+
+  <!-- 11 — WHAT I TOOK FROM IT -->
+  <section class="num-section" data-num="11">
+    <div class="num-text">
+      <div class="num-label">11 — What I Took From It</div>
+      <h2 class="num-heading">A corporate website carries more weight than I expected.</h2>
+      <div class="num-body">
+        <p>I've worked on my own website before. That's different.</p>
+        <p>When it's your own name, you can experiment. You can change your mind. You can break something and start again.</p>
+        <p>With a company website, the website becomes part of how people perceive the business. That responsibility changed how I approached the project.</p>
+        <p>I had to think beyond design. I had to learn how information architecture, content, SEO, code, visual direction, and business goals fit together, and, perhaps more importantly, how to decide what deserves priority.</p>
+        <p>This project also pushed me further into coding. Not because I wanted to become a full-time developer, but because I wanted to understand how to turn an idea in my head into something that actually works on a screen.</p>
+        <p>And sometimes, that meant trying the same thing several different ways before getting there.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 — THE RESULT -->
+  <section class="num-section" data-num="12">
+    <div class="num-text">
+      <div class="num-label">12 — The Result</div>
+      <h2 class="num-heading">A website that feels more like BSN.</h2>
+      <div class="num-body">
+        <p>The final result isn't meant to be the loudest website in the industry. It doesn't need to be.</p>
+        <p>It needs to make the right impression, communicate the business clearly, help potential buyers find what they need, and give them a reason to continue the conversation.</p>
+        <p>That was the real goal of the redesign. Not simply a better-looking website. A better representation of the company behind it.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-gallery">
+    <figure class="g-main"><img src="assets/bsn-homepage.jpg" alt="BSN homepage"></figure>
+    <figure><img src="assets/bsn-about.jpg" alt="BSN about page"></figure>
+    <figure><img src="assets/bsn-why-bsn.jpg" alt="BSN why BSN page"></figure>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="final-cta">
+    <div class="fc-label">PT. Berkah Sawit Nusantara</div>
+    <h2>See it live.</h2>
+    <a href="https://bsnindo.com" target="_blank" rel="noopener" class="fc-link">Visit the live website →</a>
+  </div>
 
   <footer>
     <span>© 2026 Teza Joplin Paelongan</span>
