@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gapdol 9000, Away to Kuching · Teza Joplin</title>
+  <link rel="canonical" href="https://www.tezajoplin.com/life-kuching.html">
+  <meta name="description" content="Five days in Kuching with Gapdol 9000. Football, coffee, unexpected modelling duties, and a runner-up finish. September 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #121110;
+      --bg2: #1a1917;
+      --accent: #c8b89a;
+      --text: #e8e0d4;
+      --muted: #a8a095;
+      --max: 720px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 100;
+      transition: width 0.1s linear;
+    }
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 2.5rem;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      transform: scale(1.05);
+      transition: transform 0.1s linear;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(18,17,16,0.92) 0%, rgba(18,17,16,0.3) 50%, rgba(18,17,16,0.1) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .article-wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-intro {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #2a2825;
+    }
+
+    .article-intro p:first-child::first-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      line-height: 0.85;
+      float: left;
+      margin-right: 0.12em;
+      margin-top: 0.1em;
+      color: var(--accent);
+    }
+
+    .article-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .article-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.9rem;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .article-section p {
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+
+    .pull-quote {
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 2.5rem 0;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1.5;
+    }
+
+    .article-photo {
+      width: 100%;
+      display: block;
+      margin: 2rem 0 0.5rem;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      max-height: 600px;
+      object-fit: cover;
+    }
+
+    .article-photo.loaded { opacity: 1; }
+
+    .photo-caption {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.75rem;
+      padding-left: 0.25rem;
+    }
+
+    .photo-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin: 2rem 0 0.5rem;
+    }
+
+    .photo-grid-2 img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .photo-grid-2 img.loaded { opacity: 1; }
+
+    .article-closing {
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .back-link:hover { border-color: var(--accent); }
+
+    .back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      background: var(--bg2);
+      border: 1px solid #2a2825;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 50;
+    }
+
+    .back-top.visible { opacity: 1; pointer-events: all; }
+
+    .back-top svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav-back {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 50;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1.5rem; }
+      .article-wrap { padding: 2.5rem 1.25rem 4rem; }
+      .photo-grid-2 img { height: 180px; }
+    }
+
+ .hero-img { object-position: center 58%; }
+ .article-photo { height: auto; }
+ @media (prefers-reduced-motion: reduce) {
+ html { scroll-behavior:auto; }
+ .reveal, .article-photo { opacity:1; transform:none; transition:none; }
+ }
+
+ .portrait-photo .photo-caption {
+   width: min(100%, 480px);
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: 0;
+   text-align: center;
+ }
+</style>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TR5NGVLZ17"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TR5NGVLZ17');
+</script>
+</head>
+
+
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <a href="index.html#life" class="nav-back">← Back</a>
+
+  <section class="hero">
+    <img src="images/Gapdol/gapdol-kuching-hero.jpg" alt="All of us at Cascara Arena. Gapdol 9000 made it to Kuching." class="hero-img" id="heroImg">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-tag">Life · Travel · Football</p>
+      <h1 class="hero-title">Gapdol 9000,<br>Away to Kuching.</h1>
+      <div class="hero-meta">
+        <span>23 to 27 September 2026</span>
+        <span>Gapdol 9000</span>
+        <span>Kuching · Sarawak</span>
+        <span>8 min read</span>
+      </div>
+    </div>
+  </section>
+
+<main class="article-wrap">
+<div class="article-intro reveal"><p>About a week after the KL tour, a friend from Pontianak messaged me. &quot;Tez, come to Kuching. We have a mini tournament.&quot; Four teams, good opposition, and a Gapdol 9000 squad full of players who could actually play. Okay. Now you have my attention.</p>
+</div>
+<figure class="portrait-photo"><img src="images/Gapdol/gapdol-team-huddle.jpg" alt="Me getting some water while the boys talk football." class="article-photo" loading="lazy" style="max-height:none;width:min(100%,480px);margin-left:auto;margin-right:auto;height:auto"><figcaption class="photo-caption">Listening. Hydrating. Trying to look like I have everything under control.</figcaption></figure>
+<section class="article-section reveal"><h2>Two Hours. Allegedly.</h2>
+<p>September 23 to 27, 2026. The boys travelled from Pontianak by shuttle van. I was coming from Jakarta, so I flew. Different routes, same destination: Kuching, Sarawak.</p>
+<p>I landed first on the 23rd. They said they would arrive about two hours after me, so I stayed at the airport. Reasonable decision with the information available.</p>
+<p>PRANKKKK. They arrived five or six hours after I did. Two hours had apparently been more of a concept than an actual estimate. I gave up waiting, went to the hotel, and rested.</p>
+<p>That night was just dinner and hanging around the hotel together. Everyone was tired, which was fair. Pontianak to Kuching is a long journey, especially when you are doing the whole thing on the road. No big plans. Just food, the boys, and finally being in the same place.</p>
+<figure><img src="images/Gapdol/gapdol-kuching-night-hangout.jpg" alt="The boys and me hanging out over food in Kuching." class="article-photo" loading="lazy" style="max-height:none;height:auto"><figcaption class="photo-caption">Everybody made it to Kuching. Time to sit down and talk about absolutely everything.</figcaption></figure>
+</section>
+<section class="article-section reveal"><h2>A Good Start. And Nasi Lemak.</h2>
+<p>The next day we went out, walked around, and ate. Nasi lemak, roti canai, the usual introductions. Kuching felt small enough that we kept ending up around the same places. You learn your way around pretty quickly when the itinerary starts repeating itself.</p>
+<p>That evening we had a friendly against DID Sarawak at Cascara Arena. First reaction: WOW. The pitch was beautiful. Pontianak, we need to have a conversation hahaha.</p>
+<figure class="portrait-photo"><img src="images/Gapdol/gapdol-vs-did-sarawak-action.jpg" alt="Me in the turquoise kit for the DID Sarawak friendly." class="article-photo" loading="lazy" style="max-height:none;width:min(100%,480px);margin-left:auto;margin-right:auto;height:auto"><figcaption class="photo-caption">First game in Kuching. Still thinking about how nice this pitch is hahaha.</figcaption></figure>
+<p>The match was intense but clean. Everyone wanted to compete, nobody needed to send anyone home injured. We won 5:1. A very good start, but still only a friendly. The actual tournament started the next day.</p>
+<figure><img src="images/Gapdol/gapdol-vs-did-sarawak-team.jpg" alt="Gapdol together on the pitch for the DID Sarawak friendly." class="article-photo" loading="lazy" style="max-height:none;height:auto"><figcaption class="photo-caption">The boys, after a 5:1 win. Okay, Kuching. We like it here.</figcaption></figure>
+</section>
+<section class="article-section reveal"><h2>Nine. Yes, Nine.</h2>
+<p>We started the morning in the hotel lounge. Games, talking, laughing at whatever the boys were saying. Very productive use of a morning, in my opinion.</p>
+
+<p>Lunch was nasi lemak. Again. Guys, I am not exaggerating when I say we ate it every single day. I know people love it. I am simply not one of those people. I lost two kilos during this trip because my appetite had basically resigned. Eating because I needed to, not because I wanted to. An unfortunate situation for someone who usually makes food half the point of travelling.</p>
+<p>We also went thrifting. Thought I might find something cheap. Then I converted the prices into rupiah. Even secondhand clothes were making me reconsider my financial decisions. Put that back, Tez.</p>
+<p>That night, Yetboi at Cascara Arena. First tournament match. We won 9:0. Yes, nine. It reads like a futsal score, but it happened on a football pitch. We played well, kept control of the tempo, and built a very useful goal difference. I was happy. Very happy, actually.</p>
+<figure><img src="images/Gapdol/gapdol-vs-yetboi-action-1.jpg" alt="Me keeping the ball away from a Yetboi player." class="article-photo" loading="lazy" style="max-height:none;height:auto"><figcaption class="photo-caption">Bro, let me have this one.</figcaption></figure>
+<figure><img src="images/Gapdol/gapdol-vs-yetboi-action-2.jpg" alt="Me and a Yetboi player going for the ball." class="article-photo" loading="lazy" style="max-height:none;height:auto"><figcaption class="photo-caption">Nine goals that night. I was mostly busy doing this.</figcaption></figure>
+<p>Afterwards we went to a nearby foodcourt and I finally found fried rice. Finally! Then I tried it and somehow the seasoning reminded me of nasi lemak again. Bro. I cannot escape.</p>
+<p>The dessert saved the night. Fried bananas with cheese and condensed milk. I ordered the jumbo portion, and for once the word jumbo was not marketing. They could not properly close the container. Had to use a rubber band to hold it together. Finally, food that made me smile. Respect to whoever decided that was an acceptable portion.</p>
+</section>
+<section class="article-section reveal"><h2>Coffee First. Modelling, Apparently, Second.</h2>
+<p>Next morning we followed a very important Pontianak tradition: nongkrong without an obvious end time. Found a good café, had good coffee, sat around. Now this part of the itinerary I understood completely.</p>
+<p>Lunch? You already know what everyone was having. I ordered roti canai with curry instead. Thankfully they had it. A small personal victory.</p>
+<p>Then we went to a park around the city square, where I somehow became a model for Born Jersey, the vendor behind our kits. Came to Kuching to play centre back. Ended up posing for jersey photos. Apparently this face can sell something after all hahaha.</p>
+<figure class="modelling-photo portrait-photo"><img src="images/Gapdol/gapdol-born-jersey-green.jpg" alt="Me posing in the green Gapdol shirt for Born Jersey." class="article-photo" loading="lazy" style="max-height:none;width:min(100%,480px);margin-left:auto;margin-right:auto;height:auto"><figcaption class="photo-caption">Came for football. Somehow got a modelling job. Not complaining hahaha.</figcaption></figure>
+<figure class="modelling-photo portrait-photo"><img src="images/Gapdol/gapdol-born-jersey-red.jpg" alt="Me trying a serious pose in the red Born Jersey shirt." class="article-photo" loading="lazy" style="max-height:none;width:min(100%,480px);margin-left:auto;margin-right:auto;height:auto"><figcaption class="photo-caption">New shirt. Serious face. Please buy the jersey, guys.</figcaption></figure>
+<p>Also found apong ice cream there. Vanilla ice cream with palm sugar sauce, plus toppings like Oreo, cereal, and crushed peanuts. It was so good. Honestly, so good. Between this and the jumbo fried bananas, dessert was doing a lot of work keeping this trip together.</p>
+<p>A bit of walking around the mall after that, then back to the pitch. Two matches that night. This was where the tournament would be decided.</p>
+</section>
+<section class="article-section reveal"><h2>Brave FC. Nothing Easy About It.</h2>
+<p>First up: Brave FC, the defending champions and the team to beat. You could feel the difference immediately. Attacks at both ends, body challenges, chances coming and going. The kind of match where your adrenaline handles the running for a while and your legs complain about it later.</p>
+<figure><img src="images/Gapdol/gapdol-vs-brave-team.jpg" alt="The boys listening before we play Brave FC." class="article-photo" loading="lazy" style="max-height:none;height:auto"><figcaption class="photo-caption">Everyone listening properly for once. Defending champions will do that to you.</figcaption></figure>
+<p>I played the full match. We had chances, they had chances, and a lot of opportunities went nowhere. Full time: 0:0. No goals, but absolutely not a quiet game.</p>
+<figure><img src="images/Gapdol/gapdol-vs-brave-action.jpg" alt="Me kicking the ball during the Brave FC match." class="article-photo" loading="lazy" style="max-height:none;height:auto"><figcaption class="photo-caption">Looks good in the photo. Still ended 0:0 tho.</figcaption></figure>
+<p>That left Apollo FC. The situation was simple enough: a win, even 1:0, would make us champions. A draw meant second. A loss meant third. If we failed to win, Brave kept the title. No pressure or anything.</p>
+</section>
+<section class="article-section reveal"><h2>Apollo FC. Ten Men, Still Going.</h2>
+<p>About ten minutes in, one of our players got a straight red. I am still annoyed about this. From where I was standing, the decision made no sense. The incident happened right in front of the assistant referee, who did not raise the flag, and suddenly we were a man down. There was a long stoppage while we protested. Let&#x27;s just say I did not leave with a high opinion of the refereeing.</p>
+<figure><img src="images/Gapdol/gapdol-vs-apollo.jpg" alt="Me and the boys beside the referee during the Apollo match." class="article-photo" loading="lazy" style="max-height:none;height:auto"><figcaption class="photo-caption">I have a few things to say here. Probably better if I don&#x27;t.</figcaption></figure>
+<p>But we kept going. Ten men, still trying to win the whole thing. We went into half time 1:0 down.</p>
+<p>I was playing centre back, and I stayed on for the full match again. Across the games, I was the one player who never got substituted. I am proud of that. The team trusted me to keep going, and I could. Small thing to some people, big thing to me.</p>
+<p>Second half, I got an assist and we pulled it back to 1:1. Then we kept attacking. I reckon we created ten to fifteen chances, including three or four one on ones with the keeper, and still could not find the winner. At some point I was half centre back, half midfielder, running forward and back because I wanted that goal so badly. Tactical discipline was having a difficult evening hahaha.</p>
+<p>The score stayed 1:1 until the final whistle. Second place for us. Brave FC stayed champions.</p>
+<p>We were angry. Of course we were. I came expecting to win, and all of us worked like we meant it. But the red card was not the whole story. Even with ten men, we had enough chances. We did not finish them. That part belonged to us, and we had to be honest about it.</p>
+</section>
+<section class="article-section reveal"><h2>Second Place. Mixed Feelings.</h2>
+<p>After the match we talked through everything, then went out to eat together. A celebration, technically. You could still see the disappointment on everyone&#x27;s face. Nobody was particularly good at hiding it.</p>
+<figure class="portrait-photo"><img src="images/Gapdol/gapdol-runner-up-trophy.jpg" alt="Me holding our second place trophy with the medal in my mouth." class="article-photo" loading="lazy" style="max-height:none;width:min(100%,480px);margin-left:auto;margin-right:auto;height:auto"><figcaption class="photo-caption">Yes, I took the photo. Yes, I still wanted first place.</figcaption></figure>
+<p>But everyone finished healthy. Nobody injured. That matters, especially after a night like that. We had things to learn, things to practise, and a lot of chances to remember the next time we were in front of goal.</p>
+<p>After a long night, finally some rest. I flew back to Jakarta the next morning. Completely tired. Happy that I had given everything I had. Still unhappy with the result. Both feelings came home with me.</p>
+<p>So was it a good trip? Yeah. Am I over finishing second? Working on it.</p>
+<p>See you on the next one.</p>
+</section>
+<a href="index.html#life" class="back-link reveal">← Back to Life</a>
+</main>
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <script>
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.article-photo, .photo-grid-2 img').forEach(img => {
+      if (img.complete) img.classList.add('loaded');
+      else img.addEventListener('load', () => img.classList.add('loaded'));
+    });
+
+    const heroImg = document.getElementById('heroImg');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight) {
+        heroImg.style.transform = `translateY(${scrolled * 0.3}px)`;
+      }
+    });
+
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

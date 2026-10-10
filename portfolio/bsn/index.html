@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BSN — Case Study — Teza Joplin</title>
+  <link rel="canonical" href="https://www.tezajoplin.com/portfolio/bsn/">
   <meta name="description" content="Case study: reframing PT. Berkah Sawit Nusantara's company website into a business profile.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -465,23 +466,40 @@
       .seo-grid { grid-template-columns: 1fr; margin-left: 0; margin-right: 0; }
       .seo-cat { padding: 2rem 0; margin: 0 var(--gx-right) 0 var(--gx-left); border-right: none; }
     }
+
+    /* Warm highlight treatment for every image caption. */
+    .num-figure figcaption, .compare figcaption {
+      color: #f0ede8;
+      background: rgba(200,184,154,0.12);
+      border: 1px solid rgba(200,184,154,0.3);
+      border-left: 3px solid #c8b89a;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .compare figcaption {
+      color: #e5d5b8;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+    }
   </style>
 </head>
 <body>
 
   <nav>
-    <a href="/" class="nav-logo">TJ</a>
+    <a href="../../index.html" class="nav-logo">TJ</a>
     <ul class="nav-links">
-      <li><a href="/#work">Work</a></li>
-      <li><a href="/portfolio/" class="active">Portfolio</a></li>
-      <li><a href="/#life">Life</a></li>
-      <li><a href="/#blog">Blog</a></li>
-      <li><a href="/#about">About</a></li>
-      <li><a href="/Teza-Joplin-Resume.pdf" download class="nav-cv">Resume</a></li>
+      <li><a href="../../index.html#work">Work</a></li>
+      <li><a href="../index.html" class="active">Portfolio</a></li>
+      <li><a href="../../index.html#life">Life</a></li>
+      <li><a href="../../index.html#blog">Blog</a></li>
+      <li><a href="../../index.html#about">About</a></li>
+      <li><a href="../../Teza-Joplin-Resume.pdf" download class="nav-cv">Resume</a></li>
     </ul>
   </nav>
 
-  <p class="breadcrumb"><a href="/portfolio/">Portfolio</a> / BSN</p>
+  <p class="breadcrumb"><a href="../index.html">Portfolio</a> / BSN</p>
 
   <section class="cs-hero">
     <div class="cs-eyebrow">Case Study · 2026</div>
@@ -833,7 +851,7 @@
 
   <footer>
     <span>© 2026 Teza Joplin Paelongan</span>
-    <a href="/portfolio/">← Back to Portfolio</a>
+    <a href="../index.html">← Back to Portfolio</a>
   </footer>
 
 </body>
